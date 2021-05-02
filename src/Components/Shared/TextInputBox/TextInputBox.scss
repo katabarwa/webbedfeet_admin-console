@@ -1,0 +1,25 @@
+@use "../../../SCSS" as style;
+
+.text-input-box-wrapper {
+  @include style.flex(column);
+  color: style.$blackColor;
+}
+
+.text-input-box-label {
+  font-size: 10px;
+  padding: 5px 10px;
+  font-weight: 500;
+}
+
+.text-input-box {
+  padding: 10px;
+  font-size: 16px;
+}
+
+.text-input-box-error {
+  color: style.$blackColor;
+}
+
+.text-input-box-active {
+  background-color: style.$whiteColor;
+}

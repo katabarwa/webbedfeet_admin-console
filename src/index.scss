@@ -1,0 +1,70 @@
+@use "./SCSS" as style;
+
+body,
+html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: style.$Helvetica;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: style.$whiteColor;
+}
+
+button {
+  cursor: pointer;
+  &:hover {
+    opacity: style.$defaultOpacityDrop;
+  }
+}
+
+input,
+textarea,
+button {
+  outline: none;
+  border: none;
+  font-family: style.$Helvetica;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::placeholder {
+  color: style.$blackColor;
+  opacity: style.$defaultOpacityDrop;
+}
+
+a:link {
+  text-decoration: none;
+  font-family: style.$Helvetica;
+  border: none;
+  &:hover {
+    opacity: style.$defaultOpacityDrop;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+p {
+  margin: 0;
+  padding: 0;
+  font-family: style.$Helvetica;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}

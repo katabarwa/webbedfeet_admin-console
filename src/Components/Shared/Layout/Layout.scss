@@ -1,0 +1,13 @@
+@use "../../../SCSS" as style;
+
+.layout-wrapper {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  background-color: style.$whiteColor;
+  @include style.flex(column);
+}
+
+.layout-children {
+  flex: 1;
+}

@@ -1,0 +1,9 @@
+@use "../../../SCSS" as style;
+
+.feedback-message-text-error {
+  color: style.$redColor;
+}
+
+.feedback-message-text-success {
+  color: style.$greenColor;
+}

@@ -1,0 +1,14 @@
+@use "../../../../SCSS" as style;
+
+.navigation-bar-wrapper {
+  @include style.flex(row);
+  align-items: center;
+  padding: 0 style.$defaultPadding;
+  height: style.$navHeight;
+  width: 100%;
+
+  .navigation-bar-logo {
+    height: calc(#{style.$navHeight} - #{style.$navHeight / 6});
+    cursor: pointer;
+  }
+}

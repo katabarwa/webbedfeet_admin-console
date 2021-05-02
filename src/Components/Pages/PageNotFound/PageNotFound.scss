@@ -1,0 +1,31 @@
+@use "../../../SCSS" as style;
+
+.page-not-found-wrapper {
+  @include style.flex(column);
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 70vh;
+  padding: style.$defaultPadding;
+
+  .page-not-found-404-text,
+  .page-not-found-title,
+  .page-not-found-message {
+    text-align: center;
+    width: 500px;
+  }
+
+  .page-not-found-404-text {
+    color: style.$redColor;
+    font-size: 200px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .page-not-found-title {
+    font-size: 24px;
+  }
+  .page-not-found-message {
+    font-size: 16px;
+  }
+}

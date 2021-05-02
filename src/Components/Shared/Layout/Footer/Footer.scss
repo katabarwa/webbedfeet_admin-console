@@ -1,0 +1,15 @@
+@use "../../../../SCSS" as style;
+
+.footer-wrapper {
+  @include style.flex(row);
+  justify-content: center;
+  align-items: center;
+  background-color: style.$blackColor;
+  color: style.$whiteColor;
+  height: style.$footerHeight;
+}
+
+.footer-copyright-text {
+  font-size: 10px;
+  opacity: style.$defaultOpacityDrop;
+}

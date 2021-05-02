@@ -1,0 +1,16 @@
+@use "../../../SCSS" as style;
+
+.button {
+  background-color: style.$blackColor;
+  color: style.$whiteColor;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: 700;
+  width: 100%;
+}
+
+.button-disabled {
+  color: rgba(style.$whiteColor, style.$defaultOpacityDrop);
+  cursor: text;
+  opacity: 1 !important;
+}
