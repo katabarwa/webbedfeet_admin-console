@@ -41,7 +41,7 @@ const AddOrUpdateShow = () => {
         placeholder="Enter title of the show"
         value={inputs.title}
         required={true}
-        errorMessage="Please enter the title of the show"
+        errorMessage="The title of the show is required"
         errorFunction={validateTextRequired}
         onError={handleInputError}
         onChange={handleInput}

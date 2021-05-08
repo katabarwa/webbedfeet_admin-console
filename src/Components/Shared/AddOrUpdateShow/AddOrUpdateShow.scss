@@ -10,7 +10,7 @@ $boxPadding: calc(#{style.$defaultPadding} * 2);
   font-size: 20px;
   color: style.$greyColor;
   font-weight: 500;
-  padding-bottom: calc(#{$boxPadding} * 2);
+  padding-bottom: calc(#{$boxPadding} * 1.2);
 }
 
 .add-or-update-show-input {
