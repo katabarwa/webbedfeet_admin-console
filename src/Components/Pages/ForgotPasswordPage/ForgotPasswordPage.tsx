@@ -72,7 +72,7 @@ const ForgotPasswordPage = () => {
         {serverErrorMessage && (
           <FeedbackMessageText message={serverErrorMessage} type="error" />
         )}
-        <div className="forgot-password-page-form">
+        <form className="forgot-password-page-form">
           {!changePasswordLinkSent && (
             <TextInputBox
               inputBoxClassName="forgot-password-page-form-input"
@@ -107,7 +107,7 @@ const ForgotPasswordPage = () => {
               onClick={() => handleSendChangePasswordLinkToEmail(email)}
             />
           )}
-        </div>
+        </form>
 
         {isSendingChangePasswordLink && (
           <Loader loaderWrapperClassName="forgot-password-sending-loader" />

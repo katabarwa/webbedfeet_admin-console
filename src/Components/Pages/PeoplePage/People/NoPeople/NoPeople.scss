@@ -1,0 +1,26 @@
+@use "../../../../../SCSS" as style;
+
+.no-people-wrapper {
+  width: 100%;
+  @include style.flex(row);
+  justify-content: center;
+  padding-top: 100px;
+}
+
+.no-people-container {
+  width: 400px;
+  @include style.flex(column);
+  align-items: center;
+}
+
+.no-people-icon {
+  width: 100px;
+  height: 100px;
+  color: style.$lightColor;
+}
+
+.no-people-message {
+  font-size: 20px;
+  color: style.$greyColor;
+  margin: 20px 0;
+}

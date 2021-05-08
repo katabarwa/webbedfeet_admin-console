@@ -73,6 +73,7 @@ const TextInputBox: FC<TextInputProps> = ({
         className={`text-input-box ${inputBoxClassName} ${
           value && value !== "" && "text-input-box-active"
         } ${error && "text-input-box-error"}`}
+        autoComplete="on"
         type={type}
         placeholder={value && value !== "" ? placeholder : label}
         value={value}

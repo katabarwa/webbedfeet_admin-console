@@ -74,7 +74,7 @@ const LoginPage = () => {
         {serverErrorMessage && (
           <FeedbackMessageText message={serverErrorMessage} type="error" />
         )}
-        <div className="login-page-form">
+        <form className="login-page-form">
           <TextInputBox
             inputBoxClassName="login-page-form-input"
             label="E-mail"
@@ -115,7 +115,7 @@ const LoginPage = () => {
               onClick={() => handleLoginByEmail(inputs)}
             />
           )}
-        </div>
+        </form>
 
         <Link className="login-page-form-cta" to={`/forgot-password`}>
           {isLoginInUser ? <Loader /> : "Forgot Password"}

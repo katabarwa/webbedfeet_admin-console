@@ -2,9 +2,9 @@ import { ChangeEvent, useState } from "react";
 import { validateTextRequired } from "../../../Functions/validateInputs";
 import TextInputBox from "../TextInputBox/TextInputBox";
 import lodash from "lodash";
-import "./AddOrUpdateShow.scss";
+import "./AddOrUpdatePerson.scss";
 
-const AddOrUpdateShow = () => {
+const AddOrUpdatePerson = () => {
   const [inputs, setInputs] = useState<{ [key: string]: string }>({});
   const [inputErrors, setInputErrors] = useState<{ [key: string]: boolean }>(
     {}
@@ -31,17 +31,17 @@ const AddOrUpdateShow = () => {
   };
 
   return (
-    <div className="add-or-update-show-wrapper">
-      <h1 className="add-or-update-show-header">New Show</h1>
+    <div className="add-or-update-person-wrapper">
+      <h1 className="add-or-update-person-header">New Person</h1>
       <TextInputBox
-        inputBoxClassName="add-or-update-show-input"
-        label="Title"
-        name="title"
+        inputBoxClassName="add-or-update-person-input"
+        label="Name"
+        name="name"
         type="text"
-        placeholder="Enter title of the show"
-        value={inputs.title}
+        placeholder="Enter name of person"
+        value={inputs.name}
         required={true}
-        errorMessage="Please enter the title of the show"
+        errorMessage="Name of person is required"
         errorFunction={validateTextRequired}
         onError={handleInputError}
         onChange={handleInput}
@@ -50,4 +50,4 @@ const AddOrUpdateShow = () => {
   );
 };
 
-export default AddOrUpdateShow;
+export default AddOrUpdatePerson;

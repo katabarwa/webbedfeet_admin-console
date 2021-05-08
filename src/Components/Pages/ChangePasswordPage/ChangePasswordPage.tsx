@@ -104,7 +104,7 @@ const ChangePasswordPage = () => {
             type="error"
           />
         )}
-        <div className="change-password-page-form">
+        <form className="change-password-page-form">
           <TextInputBox
             inputBoxClassName="change-password-page-form-input"
             label="New Password"
@@ -145,7 +145,7 @@ const ChangePasswordPage = () => {
               onClick={() => handleChangeUserPassword(inputs)}
             />
           )}
-        </div>
+        </form>
 
         {isChangingPassword && (
           <Loader loaderWrapperClassName="change-password-page-loader" />

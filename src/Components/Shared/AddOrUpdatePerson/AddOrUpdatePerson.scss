@@ -2,18 +2,18 @@
 
 $boxPadding: calc(#{style.$defaultPadding} * 2);
 
-.add-or-update-show-wrapper {
+.add-or-update-person-wrapper {
   padding: $boxPadding;
 }
 
-.add-or-update-show-header {
+.add-or-update-person-header {
   font-size: 20px;
   color: style.$greyColor;
   font-weight: 500;
   padding-bottom: calc(#{$boxPadding} * 2);
 }
 
-.add-or-update-show-input {
+.add-or-update-person-input {
   border: 1px solid style.$blackColor;
   width: 300px;
 }

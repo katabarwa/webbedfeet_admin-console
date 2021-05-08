@@ -14,6 +14,7 @@
 .text-input-box {
   padding: 10px;
   font-size: 16px;
+  border-radius: style.$defaultBorderRadius;
 }
 
 .text-input-box-error {
