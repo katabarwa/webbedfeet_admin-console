@@ -18,7 +18,7 @@ const ShowsPage = () => {
 
   return (
     <Layout>
-      <div>
+      <div className="shows-page-wrapper">
         {addNewShow && <AddOrUpdateShow />}
         {!addNewShow && <Shows />}
       </div>
