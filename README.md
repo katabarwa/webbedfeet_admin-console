@@ -4,8 +4,8 @@ The web frontend of webbedfeet administration. This is an authenticated admin co
 
 - `Login page`
 - `Forgot password page`
-- `Dashboard page`
-- `Talk show data upload page`
+- `Shows page`
+- `People page`
 - `User management page`
 - `User accounts settings page`
 

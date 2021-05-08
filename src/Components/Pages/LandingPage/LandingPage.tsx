@@ -12,7 +12,7 @@ const LandingPage = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if (user) history.push("/dashboard");
+    if (user) history.push("/shows");
     if (!user) history.push("/login");
   }, []);
 

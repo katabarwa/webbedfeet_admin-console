@@ -6,9 +6,11 @@
   padding: 0 style.$defaultPadding;
   height: style.$navHeight;
   width: 100%;
+  background-color: style.$lightColor;
+  border-bottom: 1px solid style.$blackColor;
+}
 
-  .navigation-bar-logo {
-    height: calc(#{style.$navHeight} - #{style.$navHeight / 6});
-    cursor: pointer;
-  }
+.navigation-bar-logo {
+  height: calc(#{style.$navHeight} - #{style.$navHeight / 6});
+  cursor: pointer;
 }

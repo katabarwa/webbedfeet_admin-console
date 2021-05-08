@@ -4,12 +4,13 @@ import LandingPage from "./Components/Pages/LandingPage/LandingPage";
 import LoginPage from "./Components/Pages/LoginPage/LoginPage";
 import ForgotPasswordPage from "./Components/Pages/ForgotPasswordPage/ForgotPasswordPage";
 import ChangePasswordPage from "./Components/Pages/ChangePasswordPage/ChangePasswordPage";
-import DashboardPage from "./Components/Pages/DashboardPage/DashboardPage";
 import PageNotFound from "./Components/Pages/PageNotFound/PageNotFound";
 import { useDispatch, useSelector } from "react-redux";
 import apiRequest from "./Functions/apiRequest";
 import Loader from "./Components/Shared/Loader/Loader";
 import "./App.scss";
+import ShowsPage from "./Components/Pages/ShowsPage/ShowsPage";
+import PeoplePage from "./Components/Pages/PeoplePage/PeoplePage";
 
 type TReduxStateSelector = {
   user: any;
@@ -65,8 +66,13 @@ const App = () => {
         />
         <Route
           exact={true}
-          path="/dashboard"
-          component={authenticatedRoute(DashboardPage)}
+          path="/shows"
+          component={authenticatedRoute(ShowsPage)}
+        />
+        <Route
+          exact={true}
+          path="/people"
+          component={authenticatedRoute(PeoplePage)}
         />
         <Route exact={true} path="/404" component={PageNotFound} />
         <Redirect to="/404" />

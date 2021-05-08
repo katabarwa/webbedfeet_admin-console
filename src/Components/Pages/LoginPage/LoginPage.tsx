@@ -64,7 +64,7 @@ const LoginPage = () => {
 
     dispatch({ type: "user", value: loginByEmailResponse.data });
     setIsLoginInUser(false); //Stops loader
-    history.push("/dashboard");
+    history.push("/shows");
   };
 
   return (
