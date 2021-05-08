@@ -4,7 +4,7 @@ import "./PeoplePage.scss";
 const PeoplePage = () => {
   return (
     <Layout>
-      <div>ShowPage</div>
+      <div>PeoplePage</div>
     </Layout>
   );
 };

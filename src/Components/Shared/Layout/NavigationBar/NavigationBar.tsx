@@ -8,12 +8,17 @@ const NavigationBar = () => {
       <img className="navigation-bar-logo" src={Logo} alt="Webbed Feet Logo" />
       <div className="navigation-bar-main-links">
         <NavLink
-          className="navigation-bar-link navigation-link-margin-right"
+          className="navigation-bar-link"
+          activeClassName="navigation-bar-link-active"
           to="/shows"
         >
           Shows
         </NavLink>
-        <NavLink className="navigation-bar-link" to="/people">
+        <NavLink
+          className="navigation-bar-link"
+          activeClassName="navigation-bar-link-active"
+          to="/people"
+        >
           People
         </NavLink>
       </div>

@@ -2,6 +2,7 @@
 
 .navigation-bar-wrapper {
   @include style.flex(row);
+  justify-content: space-between;
   align-items: center;
   padding: 0 style.$defaultPadding;
   height: style.$navHeight;
@@ -13,4 +14,16 @@
 .navigation-bar-logo {
   height: calc(#{style.$navHeight} - #{style.$navHeight / 6});
   cursor: pointer;
+}
+
+.navigation-bar-link {
+  color: style.$greyColor;
+  font-size: 14px;
+  padding: 0 10px;
+  margin-right: 20px;
+}
+
+.navigation-bar-link-active {
+  color: style.$blackColor;
+  border-bottom: 1px solid style.$blackColor !important;
 }
