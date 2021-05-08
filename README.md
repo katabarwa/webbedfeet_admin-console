@@ -4,6 +4,7 @@ The web frontend of webbedfeet administration. This is an authenticated admin co
 
 - `Login page`
 - `Forgot password page`
+- `Change password page`
 - `Shows page`
 - `People page`
 - `User management page`
@@ -11,13 +12,12 @@ The web frontend of webbedfeet administration. This is an authenticated admin co
 
 Tech stack:
 
-- `React`
-- `Typescript`
+- `React Typescript (using hooks)`
 - `SCSS`
 
 ## Depends on
 
-- [Webbedfeet API]()
+- [Webbedfeet Server](https://github.com/katabarwa/webbedfeet_server)
 
 ## Environment Variables
 
