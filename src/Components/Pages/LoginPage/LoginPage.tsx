@@ -106,6 +106,7 @@ const LoginPage = () => {
             <Button
               label="LOGIN"
               name="login"
+              borderRadius={false}
               disabled={
                 !Object.values(inputErrors).every(
                   (inputError) => inputError === false

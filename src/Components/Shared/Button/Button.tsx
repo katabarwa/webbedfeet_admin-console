@@ -4,6 +4,8 @@ import "./Button.scss";
 type TextInputProps = {
   label?: string;
   name?: string;
+  borderRadius?: boolean;
+  maxWidth?: boolean;
   className?: string;
   disabled?: boolean;
   onClick?: (event: MouseEvent) => void;
@@ -12,6 +14,8 @@ type TextInputProps = {
 const Button: FC<TextInputProps> = ({
   label,
   name,
+  borderRadius = true,
+  maxWidth = true,
   className,
   disabled = false,
   onClick,
@@ -25,7 +29,9 @@ const Button: FC<TextInputProps> = ({
   return (
     <button
       name={name}
-      className={`button ${className} ${disabled && "button-disabled"}`}
+      className={`button ${className} ${disabled && "button-disabled"} ${
+        borderRadius && "button-borderRadius"
+      } ${maxWidth && "button-maxWidth"}`}
       disabled={disabled}
       onClick={handleClick}
     >

@@ -1,3 +1,26 @@
-.shows-loader {
-  margin-top: 200px;
+@use "../../../../../SCSS" as style;
+
+.no-shows-wrapper {
+  width: 100%;
+  @include style.flex(row);
+  justify-content: center;
+  padding-top: 100px;
+}
+
+.no-shows-container {
+  width: 400px;
+  @include style.flex(column);
+  align-items: center;
+}
+
+.no-shows-icon {
+  width: 100px;
+  height: 100px;
+  color: style.$lightColor;
+}
+
+.no-shows-message {
+  font-size: 20px;
+  color: style.$greyColor;
+  margin: 20px 0;
 }

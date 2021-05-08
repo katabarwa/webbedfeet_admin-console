@@ -14,6 +14,9 @@ const ShowsPage = () => {
     if (addNewShowURL === "yes") {
       setAddNewShow(true);
     }
+    if (addNewShowURL !== "yes") {
+      setAddNewShow(false);
+    }
   }, [location]);
 
   return (

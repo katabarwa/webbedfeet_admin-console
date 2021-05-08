@@ -136,6 +136,7 @@ const ChangePasswordPage = () => {
             <Button
               label="CHANGE PASSWORD"
               name="login"
+              borderRadius={false}
               disabled={
                 !Object.values(inputErrors).every(
                   (inputError) => inputError === false

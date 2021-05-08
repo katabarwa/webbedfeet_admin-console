@@ -98,6 +98,7 @@ const ForgotPasswordPage = () => {
             <Button
               label="SEND PASSWORD RESET LINK"
               name="login"
+              borderRadius={false}
               disabled={
                 !Object.values(emailError).every(
                   (errorData) => errorData === false
