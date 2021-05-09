@@ -1,0 +1,29 @@
+@use "../../../SCSS" as style;
+
+.audio-config-wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.audio-config-container {
+  position: relative;
+}
+
+.audio-config-close-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: style.$blackColor;
+  font-size: 20px;
+  z-index: 1;
+  cursor: pointer;
+
+  &:hover {
+    opacity: style.$defaultOpacityDrop;
+  }
+}
+
+.audio-config-section {
+  padding-top: 15px;
+  @include style.flex(column);
+}

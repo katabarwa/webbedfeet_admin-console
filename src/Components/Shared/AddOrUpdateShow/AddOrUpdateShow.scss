@@ -3,6 +3,13 @@
 $boxPadding: calc(#{style.$defaultPadding} * 2);
 
 .add-or-update-show-wrapper {
+  @include style.flex(column);
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.add-or-update-show-top-section {
   padding: $boxPadding;
 }
 
@@ -13,7 +20,77 @@ $boxPadding: calc(#{style.$defaultPadding} * 2);
   padding-bottom: calc(#{$boxPadding} * 1.2);
 }
 
+.add-or-update-show-inputs {
+  width: 400px;
+}
+
+.add-or-update-show-input-wrapper {
+  width: 100%;
+}
+
 .add-or-update-show-input {
   border: 1px solid style.$blackColor;
-  width: 300px;
+  width: 100%;
+}
+
+.add-or-update-audio-section-container {
+  width: 100%;
+  @include style.flex(column);
+  align-items: center;
+  margin-top: 15px;
+}
+
+.add-or-update-audio-upload-box {
+  position: relative;
+  @include style.flex(column);
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 70px;
+  border: 2px dashed style.$lightColor;
+  border-radius: style.$defaultBorderRadius;
+  padding: style.$defaultPadding;
+}
+
+.add-or-update-audio-remove-button {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  color: style.$redColor;
+  font-size: 20px;
+  z-index: 3000;
+  cursor: pointer;
+
+  &:hover {
+    opacity: style.$defaultOpacityDrop;
+  }
+}
+
+.add-or-update-audio-upload-icon {
+  height: 80%;
+}
+
+.add-or-update-audio-upload-label {
+  font-size: 14px;
+  color: rgba(style.$blackColor, 0.2);
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.add-or-update-audio-input-demarcator {
+  font-size: 16px;
+  color: style.$greyColor;
+  margin: 10px 0;
+}
+
+.add-or-update-show-audio-config {
+  background-color: style.$lightColor;
+  flex: 1;
+  width: 100%;
+}
+
+.add-or-update-show-footer {
+  width: 100%;
+  @include style.flex(column);
+  align-items: center;
 }

@@ -20,7 +20,7 @@ const ShowsPage = () => {
   }, [location]);
 
   return (
-    <Layout>
+    <Layout includeFooter={!addNewShow}>
       <div className="shows-page-wrapper">
         {addNewShow && <AddOrUpdateShow />}
         {!addNewShow && <Shows />}
