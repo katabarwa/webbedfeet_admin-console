@@ -4,6 +4,8 @@
   @include style.flex(row);
   align-items: center;
   position: relative;
+  width: 100%;
+  height: style.$buttonHeight;
 }
 
 .list-dropdown-label-wrapper {
@@ -12,20 +14,24 @@
   justify-content: space-between;
   align-items: center;
   background-color: transparent;
-  border-radius: 5px;
+  border: 1px solid style.$blackColor;
+  border-radius: style.$defaultBorderRadius;
   color: style.$greyColor;
   font-weight: bold;
-  // padding: calc(1px + 0.3vw) calc(5px + 0.3vw);
+  height: 100%;
+  padding: 0 10px;
   font-size: 16px;
   cursor: pointer;
+  width: 100%;
+
+  &:hover {
+    opacity: style.$defaultOpacityDrop;
+  }
 }
 
 .list-dropdown-label {
   font-size: 16px;
-}
-
-.list-dropdown-label-wrapper:hover {
-  opacity: style.$defaultOpacity;
+  font-weight: 400;
 }
 
 .list-dropdown-component-wrapper {
@@ -35,7 +41,8 @@
   box-shadow: 0px 10px 20px rgba(style.$blackColor, 0.15);
   border-radius: 5px;
   background-color: style.$whiteColor;
-  z-index: 100;
+  z-index: 1;
+  border: 1px solid rgba(style.$blackColor, 0.7);
 }
 
 .list-dropdown-item {
@@ -43,4 +50,12 @@
   color: style.$blackColor;
   font-weight: 400;
   text-align: left;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: style.$defaultBorderRadius;
+
+  &:hover {
+    background-color: style.$lightColor;
+  }
 }

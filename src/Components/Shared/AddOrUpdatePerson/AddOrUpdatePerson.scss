@@ -3,17 +3,47 @@
 $boxPadding: calc(#{style.$defaultPadding} * 2);
 
 .add-or-update-person-wrapper {
+  @include style.flex(column);
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.add-or-update-person-top-section {
   padding: $boxPadding;
 }
 
-.add-or-update-person-header {
+.add-or-update-person-header-title {
   font-size: 20px;
   color: style.$greyColor;
   font-weight: 500;
   padding-bottom: calc(#{$boxPadding} * 1.2);
 }
 
+.add-or-update-person-inputs {
+  width: 400px;
+}
+
 .add-or-update-person-input {
   border: 1px solid style.$blackColor;
-  width: 300px;
+}
+
+.add-or-update-person-connections-container {
+  @include style.flex(column);
+
+  .add-or-update-person-connections-title {
+    font-size: 12px;
+    color: style.$greyColor;
+  }
+}
+
+.add-or-update-person-connections {
+  @include style.flex(row);
+  flex-wrap: wrap;
+}
+
+.add-or-update-person-footer {
+  width: 100%;
+  @include style.flex(column);
+  align-items: center;
 }

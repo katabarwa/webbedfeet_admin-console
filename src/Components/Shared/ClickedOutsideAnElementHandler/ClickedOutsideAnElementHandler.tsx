@@ -1,12 +1,16 @@
-import { FC, ReactNode, useEffect, useRef } from "react";
+import { CSSProperties, FC, ReactNode, useEffect, useRef } from "react";
 
 interface IClickOutsideHandlerProps {
   children: ReactNode;
+  className?: string;
+  style?: CSSProperties;
   onClickedOutside: () => void;
 }
 
 const ClickedOutsideAnElementHandler: FC<IClickOutsideHandlerProps> = ({
   children,
+  className = "",
+  style = {},
   onClickedOutside,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -33,7 +37,11 @@ const ClickedOutsideAnElementHandler: FC<IClickOutsideHandlerProps> = ({
     onClickedOutside();
   };
 
-  return <div ref={ref}>{children}</div>;
+  return (
+    <div ref={ref} className={className} style={style}>
+      {children}
+    </div>
+  );
 };
 
 export default ClickedOutsideAnElementHandler;

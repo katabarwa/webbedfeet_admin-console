@@ -1,0 +1,17 @@
+@use "../../../SCSS" as style;
+
+.chip-wrapper {
+  @include style.flex(row);
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  margin: 5px;
+  background-color: style.$blackColor;
+  width: fit-content;
+}
+
+.chip-label {
+  padding: 5px style.$defaultPadding;
+  color: style.$whiteColor;
+  font-size: 16px;
+}

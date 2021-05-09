@@ -3,7 +3,8 @@
 .button {
   background-color: style.$blackColor;
   color: style.$whiteColor;
-  padding: 15px;
+  padding: 0 15px;
+  height: style.$buttonHeight;
   font-size: 16px;
   font-weight: 700;
 }

@@ -7,10 +7,12 @@ type Props = {
   includeNavBar?: boolean;
   children: ReactNode;
   layoutClassName?: string;
+  includeFooter?: boolean;
 };
 
 const Layout: FC<Props> = ({
   includeNavBar = true,
+  includeFooter = true,
   children,
   layoutClassName = "",
 }) => {
@@ -18,7 +20,7 @@ const Layout: FC<Props> = ({
     <div className={`layout-wrapper ${layoutClassName}`}>
       {includeNavBar && <NavigationBar />}
       <div className="layout-children">{children}</div>
-      <Footer />
+      {includeFooter && <Footer />}
     </div>
   );
 };

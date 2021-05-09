@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import ClickedOutsideAnElementHandler from "../ClickedOutsideAnElementHandler/ClickedOutsideAnElementHandler";
 import { BiChevronDown } from "react-icons/bi";
 import lodash from "lodash";
+import { TSelectedItemsList } from "../../../TypescriptUtils/types";
 import "./ListDropDown.scss";
 
-type TSelectedItemsList = { [key: string]: string | number }[];
-
 type Props = {
-  label: string;
+  label?: string;
   labelPlaceholder?: string;
   dropdownFloatDirection?: "left" | "right";
   listItems: string[] | null;
@@ -21,7 +20,7 @@ type Props = {
 };
 
 const ListDropDown: React.FC<Props> = ({
-  label,
+  label = "",
   labelPlaceholder,
   dropdownFloatDirection,
   listItems,
@@ -46,9 +45,8 @@ const ListDropDown: React.FC<Props> = ({
     selectedListItems.forEach((item: string, index: number) => {
       currentSelectedItemsList.push({ item, index });
     });
-
     setSelectedItemsList(currentSelectedItemsList);
-  }, [label, selectedListItems]);
+  }, [label]);
 
   const handleOnClicked = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -73,47 +71,58 @@ const ListDropDown: React.FC<Props> = ({
   };
 
   return (
-    <ClickedOutsideAnElementHandler
-      onClickedOutside={() => {
-        setShowList(false);
-      }}
-    >
-      <div className="list-dropdown-wrapper">
-        <div
-          className={`list-dropdown-label-wrapper`}
-          style={
-            dropDownLabel !== labelPlaceholder || labelIsActive
-              ? { color: "#222222" }
-              : {}
-          }
-          onClick={handleOnClicked}
-        >
-          <div className={`list-dropdown-label ${listLabelClass}`}>
-            {dropDownLabel}
-          </div>
-          <BiChevronDown className={`list-dropdown-label ${listLabelClass}`} />
+    <div className="list-dropdown-wrapper">
+      <div
+        className={`list-dropdown-label-wrapper`}
+        style={
+          dropDownLabel !== labelPlaceholder || labelIsActive
+            ? { color: "#222222" }
+            : {}
+        }
+        onClick={handleOnClicked}
+      >
+        <div className={`list-dropdown-label ${listLabelClass}`}>
+          {labelPlaceholder ? labelPlaceholder : dropDownLabel}
         </div>
-
-        {showList && (
-          <div
-            className={`list-dropdown-component-wrapper ${listItemContainerClass}`}
-            style={dropdownFloatDirection === "left" ? { right: "0" } : {}}
-          >
-            {listItems?.map((item, index) => (
-              <div
-                key={index}
-                className={`list-dropdown-item ${listItemClass}`}
-                onClick={(e) =>
-                  handleSelectItem(item, index, selectedItemsList)
-                }
-              >
-                {item}
-              </div>
-            ))}
-          </div>
-        )}
+        <BiChevronDown className={`list-dropdown-label ${listLabelClass}`} />
       </div>
-    </ClickedOutsideAnElementHandler>
+
+      {showList && (
+        <ClickedOutsideAnElementHandler
+          className={`list-dropdown-component-wrapper ${listItemContainerClass}`}
+          style={dropdownFloatDirection === "left" ? { right: "0" } : {}}
+          onClickedOutside={() => {
+            setShowList(false);
+          }}
+        >
+          <div>
+            {listItems?.map((item, index) =>
+              multipleSelect ? (
+                <div
+                  key={index}
+                  className={`list-dropdown-item ${listItemClass}`}
+                  onClick={(e) =>
+                    handleSelectItem(item, index, selectedItemsList)
+                  }
+                >
+                  {item}
+                </div>
+              ) : (
+                <div
+                  key={index}
+                  className={`list-dropdown-item ${listItemClass}`}
+                  onClick={(e) =>
+                    handleSelectItem(item, index, selectedItemsList)
+                  }
+                >
+                  {item}
+                </div>
+              )
+            )}
+          </div>
+        </ClickedOutsideAnElementHandler>
+      )}
+    </div>
   );
 };
 

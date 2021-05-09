@@ -13,7 +13,7 @@ type TReduxStateSelector = {
 const People = () => {
   const people: any = useSelector<TReduxStateSelector>((state) => state.people);
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (!people) {

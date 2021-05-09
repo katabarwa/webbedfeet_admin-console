@@ -20,7 +20,7 @@ const PeoplePage = () => {
   }, [location]);
 
   return (
-    <Layout>
+    <Layout includeFooter={!addNewPerson}>
       <div className="people-page-wrapper">
         {addNewPerson && <AddOrUpdatePerson />}
         {!addNewPerson && <People />}
