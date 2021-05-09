@@ -1,0 +1,28 @@
+@use "../../../../SCSS" as style;
+
+.config-popup-wrapper {
+  @include style.flex(column);
+  padding: style.$defaultPadding 10px;
+  min-width: 500px;
+  min-height: 500px;
+  background-color: style.$whiteColor;
+  border-radius: style.$defaultBorderRadius;
+}
+
+.config-popup-person-inputs {
+  width: 400px;
+}
+
+.config-popup-person-audio-data-container {
+  @include style.flex(column);
+
+  .config-popup-person-audio-data-title {
+    font-size: 12px;
+    color: style.$greyColor;
+  }
+}
+
+.config-popup-person-audio-data {
+  @include style.flex(row);
+  flex-wrap: wrap;
+}

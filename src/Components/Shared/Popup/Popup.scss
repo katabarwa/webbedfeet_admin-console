@@ -1,0 +1,30 @@
+@use "../../../SCSS" as style;
+
+.popup-wrapper {
+  @include style.flex(row);
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(style.$blackColor, 0.2);
+  position: fixed;
+  min-height: 100vh;
+  min-width: 100vw;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 10000;
+  padding: style.$defaultPadding;
+}
+
+.popup-modal {
+  @include style.flex(row);
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: scroll;
+  z-index: 1092;
+}
+
+.popup-modal-box-shadow {
+  box-shadow: 0px 10px 20px rgba(style.$blackColor, 0.2);
+}

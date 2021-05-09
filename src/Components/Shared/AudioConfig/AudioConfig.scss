@@ -1,5 +1,7 @@
 @use "../../../SCSS" as style;
 
+$boxPadding: calc(#{style.$defaultPadding} * 2);
+
 .audio-config-wrapper {
   height: 100%;
   width: 100%;
@@ -9,13 +11,25 @@
   position: relative;
 }
 
-.audio-config-close-button {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  color: style.$blackColor;
-  font-size: 20px;
-  z-index: 1;
+.audio-config-section {
+  padding: $boxPadding;
+  @include style.flex(column);
+}
+
+.audio-config-audio-player {
+  @include style.flex(row);
+  align-items: center;
+  background-color: style.$blackColor;
+  width: 100%;
+  padding: 10px;
+  border-radius: style.$defaultBorderRadius;
+}
+
+.audio-config-audio-play-pause-button {
+  color: style.$whiteColor;
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
   cursor: pointer;
 
   &:hover {
@@ -23,7 +37,40 @@
   }
 }
 
-.audio-config-section {
-  padding-top: 15px;
-  @include style.flex(column);
+.audio-config-audio-player-range {
+  width: 100%;
+}
+
+.audio-config-audio-player-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: style.$defaultBorderRadius;
+  background: style.$whiteColor;
+  outline: none;
+  // opacity: style.$defaultOpacityDrop;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+
+  // &:hover {
+  //   opacity: 1;
+  // }
+}
+
+.audio-config-audio-player-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: style.$purpleColor;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.audio-config-audio-player-slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: style.$purpleColor;
+  border-radius: 50%;
+  cursor: pointer;
 }
