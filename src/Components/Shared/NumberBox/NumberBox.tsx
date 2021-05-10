@@ -7,6 +7,7 @@ let intervalCount: any;
 let intervalNumber = 0;
 
 type TNumberBoxProps = {
+  name: string;
   initialNumber?: number;
   maxNumber: number;
   minNumber?: number;
@@ -14,6 +15,7 @@ type TNumberBoxProps = {
 };
 
 const NumberBox: FC<TNumberBoxProps> = ({
+  name,
   initialNumber = 0,
   maxNumber,
   minNumber = 0,
@@ -36,19 +38,27 @@ const NumberBox: FC<TNumberBoxProps> = ({
   };
 
   const incrementNumber = () => {
-    if (intervalNumber < maxNumber) {
-      intervalNumber = intervalNumber + 1;
-      setNumber(intervalNumber);
-      onChange && onChange(intervalNumber);
-    }
+    setNumber((state) => {
+      let currentNumber = state;
+      if (currentNumber < maxNumber) {
+        currentNumber = currentNumber + 1;
+        if (currentNumber > maxNumber) currentNumber = maxNumber;
+        onChange && onChange(currentNumber);
+      }
+      return currentNumber;
+    });
   };
 
   const decrementNumber = () => {
-    if (intervalNumber > minNumber) {
-      intervalNumber = intervalNumber - 1;
-      setNumber(intervalNumber);
-      onChange && onChange(intervalNumber);
-    }
+    setNumber((state) => {
+      let currentNumber = state;
+      if (currentNumber > minNumber) {
+        currentNumber = currentNumber - 1;
+        if (currentNumber < 0) currentNumber = 0;
+        onChange && onChange(currentNumber);
+      }
+      return currentNumber;
+    });
   };
 
   const stopNumberUpdate = () => {
@@ -56,7 +66,7 @@ const NumberBox: FC<TNumberBoxProps> = ({
   };
 
   return (
-    <div className="number-box-wrapper">
+    <div id={name} className="number-box-wrapper">
       <div className="number-box-inc-dec-container">
         <AiFillCaretUp
           className="number-box-inc-dec-icon"

@@ -7,7 +7,7 @@ import ListDropDown from "../ListDropDown/ListDropDown";
 import Gap from "../Gap/Gap";
 import Button from "../Button/Button";
 import Chip from "../Chip/Chip";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import apiRequest from "../../../Functions/apiRequest";
 import { useHistory } from "react-router";
 import Loader from "../Loader/Loader";
@@ -20,6 +20,7 @@ type TReduxStateSelector = {
 const AddOrUpdatePerson = () => {
   const people: any = useSelector<TReduxStateSelector>((state) => state.people);
   const history = useHistory();
+  const dispatch = useDispatch();
   const [inputs, setInputs] = useState<{ [key: string]: any }>({});
   const [inputErrors, setInputErrors] = useState<{ [key: string]: boolean }>(
     {}
@@ -59,6 +60,11 @@ const AddOrUpdatePerson = () => {
 
     let response = await apiRequest("/person/create", "POST", currentInputs);
     if (response.success) {
+      let peopleResponse = await apiRequest("/people", "GET");
+      if (peopleResponse.success) {
+        dispatch({ type: "people", value: peopleResponse.data });
+      }
+
       setIsSubmittingPerson(false);
       history.push("/people");
     } else {

@@ -32,8 +32,8 @@ const PeopleDetails = () => {
           <th>Created By</th>
           <th>Updated By</th>
         </tr>
-        {people?.map((person: any) => (
-          <tr>
+        {people?.map((person: any, index: number) => (
+          <tr key={index}>
             <td>{person.name}</td>
             <td>
               {person.connections?.length > 0

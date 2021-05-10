@@ -11,6 +11,11 @@
   min-height: 400px;
   background-color: style.$whiteColor;
   border-radius: style.$defaultBorderRadius;
+  align-items: center;
+
+  h5 {
+    color: style.$blackColor;
+  }
 }
 
 .config-details-time-container {
@@ -55,4 +60,9 @@
 .config-details-person-audio-data {
   @include style.flex(row);
   flex-wrap: wrap;
+}
+
+.config-details-inputs-submit {
+  width: 400px;
+  margin-top: style.$defaultPadding;
 }

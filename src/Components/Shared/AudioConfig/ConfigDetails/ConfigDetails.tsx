@@ -9,6 +9,7 @@ import lodash from "lodash";
 import TextAreaBox from "../../TextAreaBox/TextAreaBox";
 import "./ConfigDetails.scss";
 import NumberBox from "../../NumberBox/NumberBox";
+import Button from "../../Button/Button";
 
 type TReduxStateSelector = {
   people: any;
@@ -79,10 +80,12 @@ const ConfigDetails: FC<TConfigDetailsProps> = ({
     <Loader loaderWrapperClassName="config-details-loader" />
   ) : (
     <div className="config-details-wrapper">
+      <h5>Map Audio Data</h5>
       <div className="config-details-time-container">
         <div className="config-details-time-input">
           <p className="config-details-person-audio-data-title">Start</p>
           <NumberBox
+            name="start"
             initialNumber={startTime}
             maxNumber={maxTime}
             onChange={(v) => onChangeTime && onChangeTime(v)}
@@ -91,6 +94,7 @@ const ConfigDetails: FC<TConfigDetailsProps> = ({
         <div className="config-details-time-input">
           <p className="config-details-person-audio-data-title">End</p>
           <NumberBox
+            name="end"
             initialNumber={startTime}
             maxNumber={maxTime}
             onChange={(v) => onChangeTime && onChangeTime(v)}
@@ -139,6 +143,14 @@ const ConfigDetails: FC<TConfigDetailsProps> = ({
           hint="e.g. https://willamagi.com, https://instagram.com/dinas"
           value={audioData?.links}
           onChange={handleInput}
+        />
+      </div>
+
+      <div className="config-details-inputs-submit">
+        <Button
+          label="Done"
+          name="audioMap"
+          onClick={() => console.log("/shows?new=yes")}
         />
       </div>
     </div>

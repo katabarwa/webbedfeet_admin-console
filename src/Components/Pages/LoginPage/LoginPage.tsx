@@ -9,7 +9,7 @@ import Button from "../../Shared/Button/Button";
 import apiRequest from "../../../Functions/apiRequest";
 import Logo from "../../../Assets/Logo/logo.png";
 import Layout from "../../Shared/Layout/Layout";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import FeedbackMessageText from "../../Shared/FeedbackMessageText/FeedbackMessageText";
 import Loader from "../../Shared/Loader/Loader";
 import { useDispatch } from "react-redux";
@@ -61,6 +61,7 @@ const LoginPage = () => {
       setIsLoginInUser(false); //Stops loader
       return;
     }
+    console.log(loginByEmailResponse);
 
     dispatch({ type: "user", value: loginByEmailResponse.data });
     setIsLoginInUser(false); //Stops loader
