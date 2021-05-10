@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ClickedOutsideAnElementHandler from "../ClickedOutsideAnElementHandler/ClickedOutsideAnElementHandler";
 import { BiChevronDown } from "react-icons/bi";
 import lodash from "lodash";
-import { TSelectedItemsList } from "../../../TypescriptUtils/types";
+import CheckBox from "../CheckBox/CheckBox";
 import "./ListDropDown.scss";
 
 type Props = {
@@ -16,7 +16,7 @@ type Props = {
   listItemClass?: string;
   listLabelClass?: string;
   labelIsActive?: boolean;
-  onSelectItem: (selectedItems: TSelectedItemsList) => void;
+  onSelectItem: (selectedItems: string[]) => void;
 };
 
 const ListDropDown: React.FC<Props> = ({
@@ -34,18 +34,9 @@ const ListDropDown: React.FC<Props> = ({
 }) => {
   const [showList, setShowList] = useState<boolean>(false);
   const [dropDownLabel, setDropDownLabel] = useState<string>(label);
-  const [
-    selectedItemsList,
-    setSelectedItemsList,
-  ] = useState<TSelectedItemsList>([]);
 
   useEffect(() => {
     setDropDownLabel(label);
-    let currentSelectedItemsList: TSelectedItemsList = [];
-    selectedListItems.forEach((item: string, index: number) => {
-      currentSelectedItemsList.push({ item, index });
-    });
-    setSelectedItemsList(currentSelectedItemsList);
   }, [label]);
 
   const handleOnClicked = (event: React.MouseEvent) => {
@@ -57,17 +48,24 @@ const ListDropDown: React.FC<Props> = ({
 
   const handleSelectItem = (
     selectedItem: string,
-    selectedItemIndex: number,
-    currentSelectedItemsList: TSelectedItemsList
+    currentSelectedItemsList: string[]
   ) => {
     setDropDownLabel(selectedItem);
     let newSelectedItems = lodash.cloneDeep(currentSelectedItemsList);
-    newSelectedItems.push({ item: selectedItem, index: selectedItemIndex });
+    let itemExistsInCurrentSelectedItemsList = false;
+    currentSelectedItemsList.forEach((item, index) => {
+      if (!itemExistsInCurrentSelectedItemsList && item === selectedItem) {
+        newSelectedItems.splice(index, 1);
+        itemExistsInCurrentSelectedItemsList = true;
+      }
+    });
 
-    if (!multipleSelect) {
-      setShowList(false);
-      onSelectItem(newSelectedItems);
-    }
+    if (!itemExistsInCurrentSelectedItemsList)
+      newSelectedItems.push(selectedItem);
+
+    if (!multipleSelect) setShowList(false);
+
+    onSelectItem(newSelectedItems);
   };
 
   return (
@@ -98,22 +96,18 @@ const ListDropDown: React.FC<Props> = ({
           <div>
             {listItems?.map((item, index) =>
               multipleSelect ? (
-                <div
+                <CheckBox
                   key={index}
-                  className={`list-dropdown-item ${listItemClass}`}
-                  onClick={(e) =>
-                    handleSelectItem(item, index, selectedItemsList)
-                  }
-                >
-                  {item}
-                </div>
+                  checkBoxWrapperClass={`list-dropdown-item ${listItemClass}`}
+                  label={item}
+                  value={selectedListItems.includes(item)}
+                  onClick={(l, s) => handleSelectItem(item, selectedListItems)}
+                />
               ) : (
                 <div
                   key={index}
                   className={`list-dropdown-item ${listItemClass}`}
-                  onClick={(e) =>
-                    handleSelectItem(item, index, selectedItemsList)
-                  }
+                  onClick={(e) => handleSelectItem(item, selectedListItems)}
                 >
                   {item}
                 </div>

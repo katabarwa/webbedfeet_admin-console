@@ -1,0 +1,32 @@
+@use "../../../SCSS" as style;
+
+.text-area-box-wrapper {
+  @include style.flex(column);
+  color: style.$blackColor;
+}
+
+.text-area-box-label {
+  font-size: 10px;
+  padding: 5px 10px;
+  font-weight: 500;
+}
+
+.text-area-box {
+  padding: 0 10px;
+  font-size: 16px;
+  height: style.$inputHeight;
+  border-radius: style.$defaultBorderRadius;
+}
+
+.text-area-box-error {
+  color: style.$blackColor;
+}
+
+.text-area-box-active {
+  background-color: style.$whiteColor;
+}
+
+.text-area-box-hint {
+  color: style.$greyColor;
+  font-size: 12px;
+}

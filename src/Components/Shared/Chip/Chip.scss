@@ -8,10 +8,21 @@
   margin: 5px;
   background-color: style.$blackColor;
   width: fit-content;
+  padding-right: 5px;
 }
 
 .chip-label {
-  padding: 5px style.$defaultPadding;
   color: style.$whiteColor;
   font-size: 16px;
+  padding: 5px style.$defaultPadding;
+}
+
+.chip-remove-button {
+  color: style.$redColor;
+  font-size: 20px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: style.$defaultOpacityDrop;
+  }
 }

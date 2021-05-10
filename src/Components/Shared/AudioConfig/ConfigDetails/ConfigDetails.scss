@@ -1,32 +1,45 @@
 @use "../../../../SCSS" as style;
 
-.config-popup-loader {
+.config-details-loader {
   margin-top: 50px;
 }
 
-.config-popup-wrapper {
+.config-details-wrapper {
   @include style.flex(column);
   padding: style.$defaultPadding;
   width: 100%;
-  min-height: 250px;
+  min-height: 400px;
   background-color: style.$whiteColor;
   border-radius: style.$defaultBorderRadius;
 }
 
-.config-popup-person-inputs {
+.config-details-inputs-container {
+  border: 1px solid style.$greyColor;
   width: 400px;
+  padding: style.$defaultPadding;
+  border-radius: style.$defaultBorderRadius;
+  margin-top: style.$defaultPadding;
 }
 
-.config-popup-person-audio-data-container {
+.config-details-person-inputs {
+  width: 100%;
+}
+
+.config-details-input {
+  border: 1px solid style.$blackColor;
+  width: 100%;
+}
+
+.config-details-person-audio-data-container {
   @include style.flex(column);
 
-  .config-popup-person-audio-data-title {
+  .config-details-person-audio-data-title {
     font-size: 12px;
     color: style.$greyColor;
   }
 }
 
-.config-popup-person-audio-data {
+.config-details-person-audio-data {
   @include style.flex(row);
   flex-wrap: wrap;
 }

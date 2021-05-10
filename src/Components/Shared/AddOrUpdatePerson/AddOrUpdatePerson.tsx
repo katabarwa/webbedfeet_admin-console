@@ -4,7 +4,6 @@ import TextInputBox from "../TextInputBox/TextInputBox";
 import lodash from "lodash";
 import "./AddOrUpdatePerson.scss";
 import ListDropDown from "../ListDropDown/ListDropDown";
-import { TSelectedItemsList } from "../../../TypescriptUtils/types";
 import Gap from "../Gap/Gap";
 import Button from "../Button/Button";
 import Chip from "../Chip/Chip";
@@ -48,7 +47,7 @@ const AddOrUpdatePerson = () => {
   };
 
   //Update selected connections to person
-  const onSelectConnections = (selectedConnections: TSelectedItemsList) => {
+  const onSelectConnections = (selectedConnections: string[]) => {
     const copyOfInputs = lodash.cloneDeep(inputs);
     copyOfInputs.connections = selectedConnections;
     setInputs(copyOfInputs);
