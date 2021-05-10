@@ -1,0 +1,29 @@
+@use "../../../SCSS" as style;
+
+.number-box-wrapper {
+  width: 100%;
+  @include style.flex(row);
+  align-items: center;
+  height: style.$inputHeight;
+  border: 1px solid style.$blackColor;
+  border-radius: style.$defaultBorderRadius;
+  padding: 0 10px;
+}
+
+.number-box-inc-dec-container {
+  margin-right: 10px;
+  @include style.flex(column);
+}
+
+.number-box-inc-dec-icon {
+  color: style.$greyColor;
+  cursor: pointer;
+
+  &:hover {
+    color: style.$blackColor;
+  }
+}
+
+.number-box-value {
+  flex: 1;
+}

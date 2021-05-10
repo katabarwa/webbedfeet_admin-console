@@ -13,6 +13,19 @@
   border-radius: style.$defaultBorderRadius;
 }
 
+.config-details-time-container {
+  @include style.flex(row);
+  align-items: center;
+  justify-content: space-between;
+  width: 400px;
+  border-radius: style.$defaultBorderRadius;
+  margin-top: style.$defaultPadding;
+}
+
+.config-details-time-input {
+  width: 48%;
+}
+
 .config-details-inputs-container {
   border: 1px solid style.$greyColor;
   width: 400px;

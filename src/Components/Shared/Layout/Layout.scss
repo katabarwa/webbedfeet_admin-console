@@ -1,13 +1,17 @@
 @use "../../../SCSS" as style;
 
 .layout-wrapper {
+  @include style.flex(column);
   height: 100vh;
   width: 100vw;
   position: relative;
   background-color: style.$whiteColor;
-  @include style.flex(column);
 }
 
 .layout-children {
   flex: 1;
+}
+
+.layout-children-fixed-height {
+  overflow: scroll;
 }

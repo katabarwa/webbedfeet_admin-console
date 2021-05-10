@@ -10,6 +10,11 @@ $boxPadding: calc(#{style.$defaultPadding} * 2);
 }
 
 .add-or-update-show-top-section {
+  flex: 1;
+  overflow: scroll;
+}
+
+.add-or-update-show-top-section-inputs {
   padding: $boxPadding;
 }
 
@@ -85,7 +90,6 @@ $boxPadding: calc(#{style.$defaultPadding} * 2);
 
 .add-or-update-show-audio-config {
   background-color: style.$lightColor;
-  flex: 1;
   width: 100%;
 }
 

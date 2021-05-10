@@ -20,7 +20,7 @@ const ShowsPage = () => {
   }, [location]);
 
   return (
-    <Layout includeFooter={!addNewShow}>
+    <Layout includeFooter={!addNewShow} childrenFixedHeight={addNewShow}>
       <div className="shows-page-wrapper">
         {addNewShow && <AddOrUpdateShow />}
         {!addNewShow && <Shows />}

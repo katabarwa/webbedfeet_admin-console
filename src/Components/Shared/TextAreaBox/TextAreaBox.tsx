@@ -1,13 +1,13 @@
 import { ChangeEvent, FocusEvent, FC, useState, useEffect } from "react";
 import { validateTextRequired } from "../../../Functions/validateInputs";
 import FeedbackMessageText from "../FeedbackMessageText/FeedbackMessageText";
-import "./TextInputBox.scss";
+import "./TextAreaBox.scss";
 
 type TTextAreaBoxProps = {
   label?: string;
   name: string;
-  inputBoxClassName?: string;
-  inputBoxWrapperClassName?: string;
+  textAreaBoxClassName?: string;
+  textAreaBoxWrapperClassName?: string;
   rows?: number;
   hint?: string;
   placeholder?: string;
@@ -24,8 +24,8 @@ type TTextAreaBoxProps = {
 const TextAreaBox: FC<TTextAreaBoxProps> = ({
   label,
   name,
-  inputBoxClassName,
-  inputBoxWrapperClassName,
+  textAreaBoxClassName,
+  textAreaBoxWrapperClassName,
   rows = 5,
   placeholder,
   hint = "",
@@ -64,7 +64,7 @@ const TextAreaBox: FC<TTextAreaBoxProps> = ({
   };
 
   return (
-    <div className={`text-area-box-wrapper ${inputBoxWrapperClassName}`}>
+    <div className={`text-area-box-wrapper ${textAreaBoxWrapperClassName}`}>
       {label && value && value !== "" && (
         <label className="text-area-box-label">{`${label} ${
           required ? "*" : ""
@@ -73,7 +73,7 @@ const TextAreaBox: FC<TTextAreaBoxProps> = ({
       <textarea
         name={name}
         rows={rows}
-        className={`text-area-box ${inputBoxClassName} ${
+        className={`text-area-box ${textAreaBoxClassName} ${
           value && value !== "" && "text-area-box-active"
         } ${error && "text-area-box-error"}`}
         autoComplete="on"

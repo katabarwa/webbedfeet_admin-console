@@ -6,23 +6,32 @@ import ListDropDown from "../../ListDropDown/ListDropDown";
 import apiRequest from "../../../../Functions/apiRequest";
 import Loader from "../../Loader/Loader";
 import lodash from "lodash";
+import TextAreaBox from "../../TextAreaBox/TextAreaBox";
 import "./ConfigDetails.scss";
-import TextInputBox from "../../TextInputBox/TextInputBox";
+import NumberBox from "../../NumberBox/NumberBox";
 
 type TReduxStateSelector = {
   people: any;
 };
 
 interface TConfigDetailsProps {
-  show?: boolean;
-  onClose?: () => void;
+  currenTime: number;
+  maxTime: number;
+  minTime?: number;
+  onChangeTime?: (time: number) => void;
 }
 
-const ConfigDetails: FC<TConfigDetailsProps> = ({ show, onClose }) => {
+const ConfigDetails: FC<TConfigDetailsProps> = ({
+  currenTime,
+  maxTime,
+  minTime = 0,
+  onChangeTime,
+}) => {
   const people: any = useSelector<TReduxStateSelector>((state) => state.people);
   const dispatch = useDispatch();
-  const [audioData, setAudioData] = useState<{ [key: string]: any }>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [audioData, setAudioData] = useState<{ [key: string]: any }>({});
+  const [startTime, setStartTime] = useState<number>(0);
 
   useEffect(() => {
     if (!people) {
@@ -37,6 +46,8 @@ const ConfigDetails: FC<TConfigDetailsProps> = ({ show, onClose }) => {
 
       retrieveShows();
     }
+
+    setStartTime(currenTime);
   }, []);
 
   //Update audio data with to person
@@ -68,6 +79,25 @@ const ConfigDetails: FC<TConfigDetailsProps> = ({ show, onClose }) => {
     <Loader loaderWrapperClassName="config-details-loader" />
   ) : (
     <div className="config-details-wrapper">
+      <div className="config-details-time-container">
+        <div className="config-details-time-input">
+          <p className="config-details-person-audio-data-title">Start</p>
+          <NumberBox
+            initialNumber={startTime}
+            maxNumber={maxTime}
+            onChange={(v) => onChangeTime && onChangeTime(v)}
+          />
+        </div>
+        <div className="config-details-time-input">
+          <p className="config-details-person-audio-data-title">End</p>
+          <NumberBox
+            initialNumber={startTime}
+            maxNumber={maxTime}
+            onChange={(v) => onChangeTime && onChangeTime(v)}
+          />
+        </div>
+      </div>
+
       <div className="config-details-inputs-container">
         <div className="config-details-person-inputs">
           {audioData?.people && (
@@ -101,24 +131,12 @@ const ConfigDetails: FC<TConfigDetailsProps> = ({ show, onClose }) => {
       </div>
 
       <div className="config-details-inputs-container">
-        <TextInputBox
-          inputBoxClassName="config-details-input"
-          label="Music title"
-          name="musicDetails"
-          type="text"
-          placeholder="Enter music details by comma"
-          value={audioData?.links}
-          onChange={handleInput}
-        />
-      </div>
-
-      <div className="config-details-inputs-container">
-        <TextInputBox
-          inputBoxClassName="config-details-input"
+        <TextAreaBox
+          textAreaBoxClassName="config-details-input"
           label="Links separated by comma"
           name="links"
-          type="text"
           placeholder="Enter links separated by comma"
+          hint="e.g. https://willamagi.com, https://instagram.com/dinas"
           value={audioData?.links}
           onChange={handleInput}
         />

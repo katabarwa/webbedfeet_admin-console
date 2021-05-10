@@ -72,70 +72,71 @@ const AddOrUpdateShow = () => {
   return (
     <div className="add-or-update-show-wrapper">
       <div className="add-or-update-show-top-section">
-        <h1 className="add-or-update-show-header">New Show</h1>
-        <div className="add-or-update-show-inputs">
-          <TextInputBox
-            inputBoxClassName="add-or-update-show-input"
-            label="Title"
-            name="title"
-            type="text"
-            placeholder="Enter title of the show"
-            value={inputs.title}
-            required={true}
-            errorMessage="The title of the show is required"
-            errorFunction={validateTextRequired}
-            onError={handleInputError}
-            onChange={handleInput}
-          />
-          {!inputs?.audioURL && (
-            <div className="add-or-update-audio-section-container">
-              <div className="add-or-update-audio-upload-box">
-                {inputs?.audioURL && (
-                  <AiOutlineClose
-                    className="add-or-update-audio-remove-button"
-                    onClick={removeAudioURL}
+        <div className="add-or-update-show-top-section-inputs">
+          <h1 className="add-or-update-show-header">New Show</h1>
+          <div className="add-or-update-show-inputs">
+            <TextInputBox
+              inputBoxClassName="add-or-update-show-input"
+              label="Title"
+              name="title"
+              type="text"
+              placeholder="Enter title of the show"
+              value={inputs.title}
+              required={true}
+              errorMessage="The title of the show is required"
+              errorFunction={validateTextRequired}
+              onError={handleInputError}
+              onChange={handleInput}
+            />
+            {!inputs?.audioURL && (
+              <div className="add-or-update-audio-section-container">
+                <div className="add-or-update-audio-upload-box">
+                  {inputs?.audioURL && (
+                    <AiOutlineClose
+                      className="add-or-update-audio-remove-button"
+                      onClick={removeAudioURL}
+                    />
+                  )}
+                  <UploadButton
+                    allowedFileTypes=".mp3"
+                    onSelect={handleUploadedAudioURL}
                   />
-                )}
-                <UploadButton
-                  allowedFileTypes=".mp3"
-                  onSelect={handleUploadedAudioURL}
+                  <img
+                    className="add-or-update-audio-upload-icon"
+                    src={AudioIcon}
+                    alt="an icon for audio file upload"
+                  />
+                  <p className="add-or-update-audio-upload-label">
+                    Upload audio file
+                  </p>
+                </div>
+
+                <p className="add-or-update-audio-input-demarcator">Or</p>
+
+                <TextInputBox
+                  inputBoxWrapperClassName="add-or-update-show-input-wrapper"
+                  inputBoxClassName="add-or-update-show-input"
+                  label="Audio URL"
+                  name="audioURL"
+                  type="text"
+                  placeholder="Enter audio url"
+                  value={inputs?.audioURL}
+                  required={true}
+                  errorMessage="The audio url iss required or upload an audio file"
+                  errorFunction={validateTextRequired}
+                  onError={handleInputError}
+                  onChange={handleInput}
                 />
-                <img
-                  className="add-or-update-audio-upload-icon"
-                  src={AudioIcon}
-                  alt="an icon for audio file upload"
-                />
-                <p className="add-or-update-audio-upload-label">
-                  Upload audio file
-                </p>
               </div>
-
-              <p className="add-or-update-audio-input-demarcator">Or</p>
-
-              <TextInputBox
-                inputBoxWrapperClassName="add-or-update-show-input-wrapper"
-                inputBoxClassName="add-or-update-show-input"
-                label="Audio URL"
-                name="audioURL"
-                type="text"
-                placeholder="Enter audio url"
-                value={inputs?.audioURL}
-                required={true}
-                errorMessage="The audio url iss required or upload an audio file"
-                errorFunction={validateTextRequired}
-                onError={handleInputError}
-                onChange={handleInput}
-              />
-            </div>
-          )}
+            )}
+          </div>
         </div>
+        {inputs?.audioURL && (
+          <div className="add-or-update-show-audio-config">
+            <AudioConfig audioURL={inputs?.audioURL} />
+          </div>
+        )}
       </div>
-      {inputs?.audioURL && (
-        <div className="add-or-update-show-audio-config">
-          <AudioConfig audioURL={inputs?.audioURL} />
-        </div>
-      )}
-
       <div className="add-or-update-show-footer">
         {serverErrorMessage && (
           <FeedbackMessageText message={serverErrorMessage} type="error" />
