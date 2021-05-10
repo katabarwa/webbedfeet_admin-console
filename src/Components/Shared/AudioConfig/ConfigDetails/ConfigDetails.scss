@@ -1,10 +1,14 @@
 @use "../../../../SCSS" as style;
 
+.config-popup-loader {
+  margin-top: 50px;
+}
+
 .config-popup-wrapper {
   @include style.flex(column);
-  padding: style.$defaultPadding 10px;
-  min-width: 500px;
-  min-height: 500px;
+  padding: style.$defaultPadding;
+  width: 100%;
+  min-height: 250px;
   background-color: style.$whiteColor;
   border-radius: style.$defaultBorderRadius;
 }

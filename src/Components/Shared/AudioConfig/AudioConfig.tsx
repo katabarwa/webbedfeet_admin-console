@@ -1,7 +1,8 @@
-import { ChangeEvent, FC, Fragment, useCallback, useState } from "react";
+import { ChangeEvent, FC, useCallback, useState } from "react";
 import { FaPause, FaPlay } from "react-icons/fa";
-import ConfigPopup from "./ConfigPopup/ConfigPopup";
+import Gap from "../Gap/Gap";
 import "./AudioConfig.scss";
+import ConfigDetails from "./ConfigDetails/ConfigDetails";
 
 type TAudioConfigProps = {
   audioURL: string;
@@ -15,7 +16,6 @@ const AudioConfig: FC<TAudioConfigProps> = ({ audioURL }) => {
   ] = useState<HTMLAudioElement | null>(null);
   const [audioDuration, setAudioDuration] = useState<number>(0);
   const [audioCurrentTime, setAudioCurrentTime] = useState<number>(0);
-  const [showConfigPopup, setShowConfigPopup] = useState<boolean>(false);
 
   const audioRef = useCallback((audioElement) => {
     if (audioElement !== null) {
@@ -83,59 +83,50 @@ const AudioConfig: FC<TAudioConfigProps> = ({ audioURL }) => {
   };
 
   const handleSliderPosition = () => {
-    if (currentAudioElement !== null)
-      console.log(currentAudioElement.currentTime);
     pauseAudio();
-    setShowConfigPopup(true);
   };
 
   return (
-    <Fragment>
-      <div className="audio-config-wrapper">
-        <audio
-          id="audio-config-id"
-          ref={audioRef}
-          onTimeUpdate={handleAudioCurrentTime}
-          onEnded={pauseAudio}
-        >
-          <source src={audioURL} type="audio/mp3" />
-        </audio>
-        <div className="audio-config-container">
-          <div className="audio-config-section">
-            <h5>{`${timeInSecondsToHms(
-              audioCurrentTime
-            )} / ${timeInSecondsToHms(audioDuration)}`}</h5>
-            <div className="audio-config-audio-player">
-              {!playingAudio && (
-                <FaPlay
-                  className="audio-config-audio-play-pause-button"
-                  onClick={playAudio}
-                />
-              )}
-              {playingAudio && (
-                <FaPause
-                  className="audio-config-audio-play-pause-button"
-                  onClick={pauseAudio}
-                />
-              )}
-              <input
-                className="audio-config-audio-player-slider"
-                type="range"
-                min={0}
-                max={audioDuration}
-                value={audioCurrentTime}
-                onChange={handleSliderValue}
-                onClick={handleSliderPosition}
-              ></input>
-            </div>
-          </div>
+    <div className="audio-config-wrapper">
+      <audio
+        id="audio-config-id"
+        ref={audioRef}
+        onTimeUpdate={handleAudioCurrentTime}
+        onEnded={pauseAudio}
+      >
+        <source src={audioURL} type="audio/mp3" />
+      </audio>
+      <div className="audio-config-section">
+        <h5>{`${timeInSecondsToHms(audioCurrentTime)} / ${timeInSecondsToHms(
+          audioDuration
+        )}`}</h5>
+        <div className="audio-config-audio-player">
+          {!playingAudio && (
+            <FaPlay
+              className="audio-config-audio-play-pause-button"
+              onClick={playAudio}
+            />
+          )}
+          {playingAudio && (
+            <FaPause
+              className="audio-config-audio-play-pause-button"
+              onClick={pauseAudio}
+            />
+          )}
+          <input
+            className="audio-config-audio-player-slider"
+            type="range"
+            min={0}
+            max={audioDuration}
+            value={audioCurrentTime}
+            onChange={handleSliderValue}
+            onDoubleClick={() => handleSliderPosition()}
+          ></input>
         </div>
+        <Gap />
+        <ConfigDetails />
       </div>
-      <ConfigPopup
-        show={showConfigPopup}
-        onClose={() => setShowConfigPopup(false)}
-      />
-    </Fragment>
+    </div>
   );
 };
 

@@ -7,10 +7,6 @@ $boxPadding: calc(#{style.$defaultPadding} * 2);
   width: 100%;
 }
 
-.audio-config-container {
-  position: relative;
-}
-
 .audio-config-section {
   padding: $boxPadding;
   @include style.flex(column);

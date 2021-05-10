@@ -1,0 +1,38 @@
+@use "../../../SCSS" as style;
+
+.checkbox-wrapper {
+  @include style.flex(row);
+  align-items: center;
+  width: 100%;
+}
+
+.checkbox {
+  @include style.flex(row);
+  align-items: center;
+  justify-content: center;
+  border-radius: style.$defaultBorderRadius;
+  border: 1px solid style.$blackColor;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: style.$defaultOpacityDrop;
+  }
+}
+
+.checkbox-checked {
+  border: 1px solid style.$blackColor;
+}
+
+.checkbox-icon {
+  color: style.$blackColor;
+  width: 20px;
+  height: 20px;
+}
+
+.checkbox-label {
+  margin: 0 0 0 5px;
+  font-size: 16px;
+  color: style.$blackColor;
+}

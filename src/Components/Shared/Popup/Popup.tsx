@@ -25,6 +25,12 @@ const Popup: FC<Props> = ({
     setShowPopup(display);
   }, [display]);
 
+  const handleClosePopup = () => {
+    console.log("here");
+    setShowPopup(false);
+    onClose();
+  };
+
   return (
     <div
       className="popup-wrapper"
@@ -34,9 +40,7 @@ const Popup: FC<Props> = ({
         justifyContent: justify,
       }}
     >
-      <ClickedOutsideAnElementHandler
-        onClickedOutside={() => setShowPopup(false)}
-      >
+      <ClickedOutsideAnElementHandler onClickedOutside={handleClosePopup}>
         <div
           id="cc-m"
           className={`popup-modal ${boxShadow && "popup-modal-box-shadow"}`}
