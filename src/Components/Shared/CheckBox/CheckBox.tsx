@@ -3,27 +3,27 @@ import { FiCheck } from "react-icons/fi";
 import "./CheckBox.scss";
 
 type Props = {
-  value: boolean;
-  label: string;
+  value?: boolean | null;
+  label?: string;
   checkBoxWrapperClass?: string;
   onClick?: (label: string, value: boolean) => void;
 };
 
 const CheckBox: React.FC<Props> = ({
-  value,
-  label,
+  value = null,
+  label = "",
   checkBoxWrapperClass,
   onClick,
 }) => {
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    setChecked(value);
+    if (value !== null) setChecked(value);
   }, [value]);
 
   const handleCheckBox = () => {
     const currentCheckValue = checked;
-    setChecked(!currentCheckValue);
+    if (value === null) setChecked(!currentCheckValue);
     onClick && onClick(label, !currentCheckValue);
   };
 
@@ -39,12 +39,14 @@ const CheckBox: React.FC<Props> = ({
       >
         {checked && <FiCheck className="checkbox-icon" />}
       </div>
-      <p
-        className="checkbox-label"
-        style={{ fontWeight: checked ? 600 : "normal" }}
-      >
-        {label}
-      </p>
+      {label && (
+        <p
+          className="checkbox-label"
+          style={{ fontWeight: checked ? 600 : "normal" }}
+        >
+          {label}
+        </p>
+      )}
     </div>
   );
 };

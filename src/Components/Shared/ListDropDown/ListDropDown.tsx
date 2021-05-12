@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import ClickedOutsideAnElementHandler from "../ClickedOutsideAnElementHandler/ClickedOutsideAnElementHandler";
 import { BiChevronDown } from "react-icons/bi";
 import lodash from "lodash";
 import CheckBox from "../CheckBox/CheckBox";
 import "./ListDropDown.scss";
+import { FiMoreVertical } from "react-icons/fi";
 
 type Props = {
   label?: string;
@@ -14,8 +15,10 @@ type Props = {
   multipleSelect?: boolean;
   listItemContainerClass?: string;
   listItemClass?: string;
+  LabelWrapperClass?: string;
   listLabelClass?: string;
   labelIsActive?: boolean;
+  menuIcon?: "horizontal" | "vertical";
   onSelectItem: (selectedItems: string[]) => void;
 };
 
@@ -29,7 +32,9 @@ const ListDropDown: React.FC<Props> = ({
   listItemContainerClass,
   listItemClass,
   listLabelClass,
+  LabelWrapperClass,
   labelIsActive,
+  menuIcon,
   onSelectItem,
 }) => {
   const [showList, setShowList] = useState<boolean>(false);
@@ -71,7 +76,7 @@ const ListDropDown: React.FC<Props> = ({
   return (
     <div className="list-dropdown-wrapper">
       <div
-        className={`list-dropdown-label-wrapper`}
+        className={`list-dropdown-label-wrapper ${LabelWrapperClass}`}
         style={
           dropDownLabel !== labelPlaceholder || labelIsActive
             ? { color: "#222222" }
@@ -79,10 +84,20 @@ const ListDropDown: React.FC<Props> = ({
         }
         onClick={handleOnClicked}
       >
-        <div className={`list-dropdown-label ${listLabelClass}`}>
-          {labelPlaceholder ? labelPlaceholder : dropDownLabel}
-        </div>
-        <BiChevronDown className={`list-dropdown-label ${listLabelClass}`} />
+        {!menuIcon && (
+          <Fragment>
+            <div className={`list-dropdown-label ${listLabelClass}`}>
+              {labelPlaceholder ? labelPlaceholder : dropDownLabel}
+            </div>
+            <BiChevronDown
+              className={`list-dropdown-label ${listLabelClass}`}
+            />
+          </Fragment>
+        )}
+
+        {menuIcon && (
+          <FiMoreVertical className={`list-dropdown-label ${listLabelClass}`} />
+        )}
       </div>
 
       {showList && (

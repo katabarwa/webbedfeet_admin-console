@@ -36,4 +36,49 @@ $boxPadding: calc(#{style.$defaultPadding} * 2);
     text-align: start;
     color: style.$greyColor;
   }
+
+  .people-details-table-no-padding {
+    text-align: center;
+  }
+}
+
+.people-details-table-menu-icon {
+  border: none;
+  background: transparent;
+  padding: 0;
+  justify-content: flex-end;
+}
+
+.people-details-table-menu-list-container {
+  background-color: style.$lightColor;
+  border: 0;
+}
+
+.people-details-table-menu-list-item {
+  font-size: 12px;
+  font-weight: 600;
+  padding-right: 50px;
+
+  &:hover {
+    opacity: style.$defaultOpacityDrop;
+  }
+}
+
+.people-details-edit-person-container {
+  position: relative;
+  width: 80vw;
+  height: 100vh;
+}
+
+.people-details-edit-person-container-close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: style.$defaultOpacityDrop;
+  }
 }

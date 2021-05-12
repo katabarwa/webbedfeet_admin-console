@@ -26,14 +26,11 @@ const ClickedOutsideAnElementHandler: FC<IClickOutsideHandlerProps> = ({
   }, []);
 
   const handleClick = (event: MouseEvent) => {
+    if (ref.current?.contains(event.target as Element)) return; // inside click
+
+    //outside click
     event.preventDefault();
     event.stopPropagation();
-    if (ref.current?.contains(event.target as Element)) {
-      // inside click
-      return;
-    }
-
-    //emit clicked outside
     onClickedOutside();
   };
 

@@ -26,7 +26,6 @@ const Popup: FC<Props> = ({
   }, [display]);
 
   const handleClosePopup = () => {
-    console.log("here");
     setShowPopup(false);
     onClose();
   };
