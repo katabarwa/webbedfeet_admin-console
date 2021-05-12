@@ -20,11 +20,14 @@ const PeopleDetails = () => {
   const [activePersonIDs, setActivePersonIDs] = useState<string[]>([]);
   const [showEditPersonPopup, setShowEditPersonPopup] =
     useState<boolean>(false);
+  const [showDeletePersonPopup, setShowDeletePersonPopup] =
+    useState<boolean>(false);
 
   //Get selected menu
   const handleSelectedMenu = (selectedMenus: string[], personID: string) => {
     setActivePersonIDs([personID]);
     if (selectedMenus[0] === "Edit") setShowEditPersonPopup(true);
+    if (selectedMenus[0] === "Delete") setShowDeletePersonPopup(true);
   };
 
   //Get active person details
@@ -38,6 +41,52 @@ const PeopleDetails = () => {
   //Close edit person popup
   const handleCloseEditPersonPopup = () => {
     setShowEditPersonPopup(false);
+  };
+
+  const deletePerson = async (personID: string) => {
+    setServerErrorMessage(null);
+    setIsSubmittingPerson(true);
+    const copyOfCurrentInputs = lodash.cloneDeep(currentInputs);
+    if (currentInputs.connections) {
+      let connectionIDs: string[] = [];
+      const copyOfConnections = lodash.cloneDeep(currentInputs.connections);
+      copyOfConnections.forEach((connectionName: string) => {
+        people.forEach((connectionPerson: any) => {
+          if (connectionPerson.name === connectionName) {
+            connectionIDs.push(connectionPerson._id);
+          }
+        });
+      });
+      copyOfCurrentInputs.connections = connectionIDs;
+    }
+
+    let response: any;
+    if (action === "create")
+      response = await apiRequest(
+        "/person/create",
+        "POST",
+        copyOfCurrentInputs
+      );
+    if (action === "update")
+      response = await apiRequest(
+        `/person/update/${person._id}`,
+        "PATCH",
+        copyOfCurrentInputs
+      );
+    if (response?.success) {
+      let peopleResponse = await apiRequest("/people", "GET");
+      if (peopleResponse.success) {
+        dispatch({ type: "people", value: peopleResponse.data });
+      }
+
+      setIsSubmittingPerson(false);
+      if (action === "update") onUpdate && onUpdate();
+      history.push("/people");
+      return;
+    }
+
+    setServerErrorMessage(response.message);
+    setIsSubmittingPerson(false);
   };
 
   return (
@@ -99,6 +148,25 @@ const PeopleDetails = () => {
         </table>
       </div>
       {showEditPersonPopup && (
+        <Popup
+          display={showEditPersonPopup}
+          align="flex-start"
+          justify="flex-end"
+          onClose={handleCloseEditPersonPopup}
+        >
+          <div className="people-details-edit-person-container">
+            <AiOutlineClose
+              className="people-details-edit-person-container-close-button"
+              onClick={handleCloseEditPersonPopup}
+            />
+            <AddOrUpdatePerson
+              person={getActivePerson(activePersonIDs[0])}
+              onUpdate={handleCloseEditPersonPopup}
+            />
+          </div>
+        </Popup>
+      )}
+      {showDeletePersonPopup && (
         <Popup
           display={showEditPersonPopup}
           align="flex-start"

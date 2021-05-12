@@ -1,0 +1,67 @@
+@use "../../../SCSS" as style;
+
+$boxPadding: calc(#{style.$defaultPadding} * 2);
+
+.feedback-message-popup-wrapper {
+  @include style.flex(column);
+  align-items: center;
+  padding: $boxPadding;
+  background-color: style.$whiteColor;
+  border-radius: style.$defaultBorderRadius;
+  max-width: 400px;
+  position: relative;
+}
+
+.feedback-message-popup-cancel-icon {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: style.$defaultOpacityDrop;
+  }
+}
+
+.feedback-message-popup-icon {
+  width: 50px;
+  height: 50px;
+}
+
+.feedback-message-popup-title {
+  font-size: 22px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.feedback-message-popup-message {
+  font-size: 16px;
+  line-height: 1.3;
+  text-align: center;
+  margin-top: $boxPadding;
+}
+
+.feedback-message-popup-success {
+  color: style.$greenColor;
+}
+
+.feedback-message-popup-error {
+  color: style.$redColor;
+}
+
+.feedback-message-popup-alert {
+  color: style.$blackColor;
+}
+
+.feedback-message-popup-buttons {
+  @include style.flex(row);
+  width: 100%;
+  justify-content: flex-end;
+  margin-top: $boxPadding;
+}
+
+.feedback-message-popup-button {
+  width: 150px;
+}
