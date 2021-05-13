@@ -15,7 +15,7 @@ import "./AddOrUpdateShow.scss";
 
 const AddOrUpdateShow = () => {
   const history = useHistory();
-  const [inputs, setInputs] = useState<{ [key: string]: string }>({});
+  const [inputs, setInputs] = useState<{ [key: string]: any }>({});
   const [inputErrors, setInputErrors] = useState<{ [key: string]: boolean }>(
     {}
   );
@@ -25,6 +25,8 @@ const AddOrUpdateShow = () => {
 
   //Update input and set inputs state
   const handleInput = (event: ChangeEvent) => {
+    console.log(inputs);
+    console.log(inputErrors);
     setServerErrorMessage(null);
     const inputValue = (event.target as any).value;
     const inputName = (event.target as any).name;
@@ -51,6 +53,26 @@ const AddOrUpdateShow = () => {
   const removeAudioURL = () => {
     const copyOfInputs = lodash.cloneDeep(inputs);
     delete copyOfInputs.audioURL;
+    setInputs(copyOfInputs);
+  };
+
+  //Update inputs with audio config data and set inputs state
+  const handleAudioConfigData = (
+    currentAudioConfigData: {
+      [key: string]: any;
+    }[]
+  ) => {
+    setServerErrorMessage(null);
+    const copyOfInputs = lodash.cloneDeep(inputs);
+    copyOfInputs.audioConfigData = currentAudioConfigData;
+    setInputs(copyOfInputs);
+  };
+
+  //Update inputs with audio duration and set inputs state
+  const handleAudioDuration = (audioDuration: number) => {
+    setServerErrorMessage(null);
+    const copyOfInputs = lodash.cloneDeep(inputs);
+    copyOfInputs.audioDuration = audioDuration;
     setInputs(copyOfInputs);
   };
 
@@ -120,10 +142,6 @@ const AddOrUpdateShow = () => {
                   type="text"
                   placeholder="Enter audio url"
                   value={inputs?.audioURL}
-                  required={true}
-                  errorMessage="The audio url iss required or upload an audio file"
-                  errorFunction={validateTextRequired}
-                  onError={handleInputError}
                   onChange={handleInput}
                 />
               </div>
@@ -137,7 +155,13 @@ const AddOrUpdateShow = () => {
               onClick={removeAudioURL}
             />
 
-            <AudioConfig audioURL={inputs?.audioURL} />
+            <AudioConfig
+              audioURL={inputs?.audioURL}
+              audioConfigData={inputs?.audioConfigData}
+              audioLength={inputs.audioDuration}
+              onSubmitAudioDuration={handleAudioDuration}
+              onSubmitAudioConfigData={handleAudioConfigData}
+            />
           </div>
         )}
       </div>
@@ -153,7 +177,7 @@ const AddOrUpdateShow = () => {
             disabled={
               !Object.values(inputErrors).every(
                 (inputError) => inputError === false
-              )
+              ) && !inputs?.audioURL
             }
             onClick={() => createShow(inputs)}
           />

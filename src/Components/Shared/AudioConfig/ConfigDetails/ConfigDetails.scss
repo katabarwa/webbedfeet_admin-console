@@ -79,7 +79,18 @@
   flex-wrap: wrap;
 }
 
-.config-details-inputs-submit {
+.config-details-inputs-action-buttons {
+  @include style.flex(row);
   width: 400px;
   margin-top: style.$defaultPadding;
+}
+
+.config-details-inputs-cancel-button {
+  background-color: transparent;
+  color: style.$blackColor;
+  border: 1px solid style.$blackColor;
+}
+
+.config-details-submit-error-message {
+  padding: 5px 0;
 }

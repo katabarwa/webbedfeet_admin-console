@@ -12,7 +12,8 @@ type TNumberBoxProps = {
   maxNumber: number;
   minNumber?: number;
   makeActive?: boolean;
-  isActive?: (value: boolean) => void;
+  disableActiveClass?: boolean;
+  isActive?: () => void;
   onChange?: (value: number) => void;
 };
 
@@ -26,7 +27,6 @@ const NumberBox: FC<TNumberBoxProps> = ({
   isActive,
   onChange,
 }) => {
-  const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState<boolean>(false);
   const [number, setNumber] = useState<number>(0);
   useEffect(() => {
@@ -37,29 +37,9 @@ const NumberBox: FC<TNumberBoxProps> = ({
     if (active !== makeActive) setActive(makeActive);
   }, [makeActive]);
 
-  useEffect(() => {
-    // add event listener when element is mounted
-    document.addEventListener("mousedown", handleClick);
-
-    return () => {
-      // remove event listener when element is unmounted
-      document.removeEventListener("mousedown", handleClick);
-    };
-  }, []);
-
-  const handleClick = (event: MouseEvent) => {
-    if (ref.current?.contains(event.target as Element)) {
-      // inside click
-      setActive(true);
-      isActive && isActive(true);
-      return;
-    }
-
-    //outside click
-    event.preventDefault();
-    event.stopPropagation();
-    setActive(false);
-    isActive && isActive(false);
+  const handleClick = () => {
+    setActive(true);
+    isActive && isActive();
   };
 
   const updateNumber = (value: "inc" | "dec") => {
@@ -75,6 +55,7 @@ const NumberBox: FC<TNumberBoxProps> = ({
   const incrementNumber = () => {
     setNumber((state) => {
       let currentNumber = state;
+      console.log("inc", currentNumber, maxNumber);
       if (currentNumber < maxNumber) {
         currentNumber = currentNumber + 1;
         if (currentNumber > maxNumber) currentNumber = maxNumber;
@@ -87,9 +68,10 @@ const NumberBox: FC<TNumberBoxProps> = ({
   const decrementNumber = () => {
     setNumber((state) => {
       let currentNumber = state;
+      console.log("dec", currentNumber, minNumber);
       if (currentNumber > minNumber) {
         currentNumber = currentNumber - 1;
-        if (currentNumber < 0) currentNumber = 0;
+        if (currentNumber < minNumber) currentNumber = minNumber;
         onChange && onChange(currentNumber);
       }
       return currentNumber;
@@ -102,9 +84,9 @@ const NumberBox: FC<TNumberBoxProps> = ({
 
   return (
     <div
-      ref={ref}
       id={name}
       className={`number-box-wrapper ${active && "number-box-wrapper-active"}`}
+      onClick={handleClick}
     >
       <div className="number-box-inc-dec-container">
         <AiFillCaretUp

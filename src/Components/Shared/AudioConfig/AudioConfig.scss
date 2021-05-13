@@ -32,13 +32,8 @@ $boxPadding: calc(#{style.$defaultPadding} * 2);
   border-radius: style.$defaultBorderRadius;
   background: style.$whiteColor;
   outline: none;
-  // opacity: style.$defaultOpacityDrop;
   -webkit-transition: 0.2s;
   transition: opacity 0.2s;
-
-  // &:hover {
-  //   opacity: 1;
-  // }
 }
 
 .audio-config-audio-player-slider::-webkit-slider-thumb {
@@ -57,4 +52,31 @@ $boxPadding: calc(#{style.$defaultPadding} * 2);
   background: style.$purpleColor;
   border-radius: 50%;
   cursor: pointer;
+}
+
+.audio-config-details-container {
+  @include style.flex(row);
+}
+
+.audio-config-details-container-left-section {
+  width: 280px;
+}
+
+.audio-config-details-container-right-section {
+  flex: 1;
+  @include style.flex(row);
+  justify-content: center;
+}
+
+.audio-config-tab {
+  background-color: transparent;
+  color: style.$greyColor;
+  // border: 1px solid style.$greyColor;
+  margin-bottom: 5px;
+}
+
+.audio-config-tab-active {
+  background-color: style.$whiteColor;
+  color: style.$blackColor;
+  border: 1px solid style.$whiteColor;
 }
