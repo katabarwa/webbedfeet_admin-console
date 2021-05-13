@@ -47,7 +47,8 @@ $boxPadding: calc(#{style.$defaultPadding} * 2);
   color: style.$greenColor;
 }
 
-.feedback-message-popup-error {
+.feedback-message-popup-error,
+.feedback-message-popup-warning {
   color: style.$redColor;
 }
 

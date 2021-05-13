@@ -18,6 +18,18 @@
   }
 }
 
+.config-details-audio-play-pause-button {
+  color: style.$blackColor;
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: style.$defaultOpacityDrop;
+  }
+}
+
 .config-details-time-container {
   @include style.flex(row);
   align-items: center;
@@ -27,8 +39,13 @@
   margin-top: style.$defaultPadding;
 }
 
+.config-details-audio-control {
+  color: transparent;
+}
+
 .config-details-time-input {
-  width: 48%;
+  flex: 1;
+  margin-left: 10px;
 }
 
 .config-details-inputs-container {

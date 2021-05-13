@@ -5,9 +5,15 @@
   @include style.flex(row);
   align-items: center;
   height: style.$inputHeight;
-  border: 1px solid style.$blackColor;
+  border: 1px solid style.$greyColor;
+  color: style.$greyColor;
   border-radius: style.$defaultBorderRadius;
   padding: 0 10px;
+}
+
+.number-box-wrapper-active {
+  border: 1px solid style.$blackColor;
+  color: style.$blackColor;
 }
 
 .number-box-inc-dec-container {
@@ -16,11 +22,11 @@
 }
 
 .number-box-inc-dec-icon {
-  color: style.$greyColor;
+  // color: style.$greyColor;
   cursor: pointer;
 
   &:hover {
-    color: style.$blackColor;
+    opacity: style.$defaultOpacityDrop;
   }
 }
 

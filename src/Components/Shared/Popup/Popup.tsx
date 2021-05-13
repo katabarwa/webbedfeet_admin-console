@@ -8,6 +8,7 @@ type Props = {
   align?: "flex-start" | "center" | "flex-end";
   boxShadow?: boolean;
   onClose: () => void;
+  allowCloseOnClickOutside?: boolean;
   children?: ReactNode;
 };
 
@@ -17,6 +18,7 @@ const Popup: FC<Props> = ({
   align,
   boxShadow = true,
   onClose,
+  allowCloseOnClickOutside = true,
   children,
 }) => {
   const [showPopup, setShowPopup] = useState(display);
@@ -39,7 +41,11 @@ const Popup: FC<Props> = ({
         justifyContent: justify,
       }}
     >
-      <ClickedOutsideAnElementHandler onClickedOutside={handleClosePopup}>
+      <ClickedOutsideAnElementHandler
+        onClickedOutside={
+          allowCloseOnClickOutside ? handleClosePopup : () => console.log()
+        }
+      >
         <div
           id="cc-m"
           className={`popup-modal ${boxShadow && "popup-modal-box-shadow"}`}

@@ -21,18 +21,6 @@ $boxPadding: calc(#{style.$defaultPadding} * 2);
   border-radius: style.$defaultBorderRadius;
 }
 
-.audio-config-audio-play-pause-button {
-  color: style.$whiteColor;
-  width: 25px;
-  height: 25px;
-  margin-right: 10px;
-  cursor: pointer;
-
-  &:hover {
-    opacity: style.$defaultOpacityDrop;
-  }
-}
-
 .audio-config-audio-player-range {
   width: 100%;
 }

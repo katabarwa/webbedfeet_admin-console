@@ -7,9 +7,10 @@ import apiRequest from "../../../../Functions/apiRequest";
 import Loader from "../../Loader/Loader";
 import lodash from "lodash";
 import TextAreaBox from "../../TextAreaBox/TextAreaBox";
-import "./ConfigDetails.scss";
 import NumberBox from "../../NumberBox/NumberBox";
 import Button from "../../Button/Button";
+import { FaPause, FaPlay } from "react-icons/fa";
+import "./ConfigDetails.scss";
 
 type TReduxStateSelector = {
   people: any;
@@ -17,15 +18,25 @@ type TReduxStateSelector = {
 
 interface TConfigDetailsProps {
   currenTime: number;
+  initialFromTime: number;
+  initialToTime: number;
   maxTime: number;
   minTime?: number;
+  playingAudio: boolean;
+  onPlayAudio: () => void;
+  onPauseAudio: () => void;
   onChangeTime?: (time: number) => void;
 }
 
 const ConfigDetails: FC<TConfigDetailsProps> = ({
   currenTime,
+  initialFromTime,
+  initialToTime,
   maxTime,
   minTime = 0,
+  playingAudio,
+  onPlayAudio,
+  onPauseAudio,
   onChangeTime,
 }) => {
   const people: any = useSelector<TReduxStateSelector>((state) => state.people);
@@ -33,6 +44,9 @@ const ConfigDetails: FC<TConfigDetailsProps> = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [audioData, setAudioData] = useState<{ [key: string]: any }>({});
   const [startTime, setStartTime] = useState<number>(0);
+  const [endTime, setEndTime] = useState<number>(0);
+  const [startTimeActive, setStartTimeActive] = useState<boolean>(false);
+  const [endTimeActive, setEndTimeActive] = useState<boolean>(false);
 
   useEffect(() => {
     if (!people) {
@@ -48,8 +62,14 @@ const ConfigDetails: FC<TConfigDetailsProps> = ({
       retrieveShows();
     }
 
-    setStartTime(currenTime);
+    setStartTime(initialFromTime);
+    setEndTime(initialToTime);
   }, []);
+
+  useEffect(() => {
+    if (startTimeActive) setStartTime(currenTime);
+    if (endTimeActive) setEndTime(currenTime);
+  }, [currenTime]);
 
   //Update audio data with to person
   const onSelectPeople = (selectedConnections: string[]) => {
@@ -81,13 +101,33 @@ const ConfigDetails: FC<TConfigDetailsProps> = ({
   ) : (
     <div className="config-details-wrapper">
       <h5>Map Audio Data</h5>
+
       <div className="config-details-time-container">
+        <div className="config-details-audio-control">
+          <p className="config-details-person-audio-data-title">.</p>
+          {!playingAudio && (
+            <FaPlay
+              className="config-details-audio-play-pause-button"
+              onClick={onPlayAudio}
+            />
+          )}
+          {playingAudio && (
+            <FaPause
+              className="config-details-audio-play-pause-button"
+              onClick={onPauseAudio}
+            />
+          )}
+        </div>
+
         <div className="config-details-time-input">
           <p className="config-details-person-audio-data-title">Start</p>
           <NumberBox
             name="start"
             initialNumber={startTime}
-            maxNumber={maxTime}
+            value={startTime}
+            minNumber={minTime}
+            maxNumber={endTime}
+            isActive={(v) => setStartTimeActive(v)}
             onChange={(v) => onChangeTime && onChangeTime(v)}
           />
         </div>
@@ -95,8 +135,11 @@ const ConfigDetails: FC<TConfigDetailsProps> = ({
           <p className="config-details-person-audio-data-title">End</p>
           <NumberBox
             name="end"
-            initialNumber={startTime}
+            initialNumber={endTime}
+            value={endTime}
+            minNumber={startTime}
             maxNumber={maxTime}
+            isActive={(v) => setEndTimeActive(v)}
             onChange={(v) => onChangeTime && onChangeTime(v)}
           />
         </div>
@@ -122,7 +165,7 @@ const ConfigDetails: FC<TConfigDetailsProps> = ({
           <Gap height="5px" />
           {people?.length > 0 && (
             <ListDropDown
-              labelPlaceholder="Add Person"
+              labelPlaceholder="Add People"
               listItems={people?.map((person: any) => person.name)}
               selectedListItems={audioData?.people?.map(
                 (person: any) => person

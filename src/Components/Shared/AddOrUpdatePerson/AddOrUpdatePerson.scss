@@ -47,4 +47,5 @@ $boxPadding: calc(#{style.$defaultPadding} * 2);
   width: 100%;
   @include style.flex(column);
   align-items: center;
+  border-top: 3px solid style.$purpleColor;
 }

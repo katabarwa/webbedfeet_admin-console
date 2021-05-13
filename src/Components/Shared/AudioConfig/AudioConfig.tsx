@@ -1,5 +1,4 @@
 import { ChangeEvent, FC, useCallback, useState } from "react";
-import { FaPause, FaPlay } from "react-icons/fa";
 import timeInSecondsToHms from "../../../Functions/timeInSecondsToHms";
 import Gap from "../Gap/Gap";
 import "./AudioConfig.scss";
@@ -11,10 +10,8 @@ type TAudioConfigProps = {
 
 const AudioConfig: FC<TAudioConfigProps> = ({ audioURL }) => {
   const [playingAudio, setPlayingAudio] = useState<boolean>(false);
-  const [
-    currentAudioElement,
-    setCurrentAudioElement,
-  ] = useState<HTMLAudioElement | null>(null);
+  const [currentAudioElement, setCurrentAudioElement] =
+    useState<HTMLAudioElement | null>(null);
   const [audioDuration, setAudioDuration] = useState<number>(0);
   const [audioCurrentTime, setAudioCurrentTime] = useState<number>(0);
 
@@ -49,7 +46,7 @@ const AudioConfig: FC<TAudioConfigProps> = ({ audioURL }) => {
     const currentAudioTime = (event.target as any).value;
     if (currentAudioElement !== null)
       currentAudioElement.currentTime = currentAudioTime;
-    playAudio();
+    pauseAudio();
     setAudioCurrentTime(currentAudioTime);
   };
 
@@ -59,7 +56,7 @@ const AudioConfig: FC<TAudioConfigProps> = ({ audioURL }) => {
 
   const handleConfigDetailsValue = (value: number) => {
     if (currentAudioElement !== null) currentAudioElement.currentTime = value;
-    playAudio();
+    pauseAudio();
     setAudioCurrentTime(value);
   };
 
@@ -78,33 +75,26 @@ const AudioConfig: FC<TAudioConfigProps> = ({ audioURL }) => {
           audioDuration
         )}`}</h5>
         <div className="audio-config-audio-player">
-          {!playingAudio && (
-            <FaPlay
-              className="audio-config-audio-play-pause-button"
-              onClick={playAudio}
-            />
-          )}
-          {playingAudio && (
-            <FaPause
-              className="audio-config-audio-play-pause-button"
-              onClick={pauseAudio}
-            />
-          )}
           <input
             className="audio-config-audio-player-slider"
             type="range"
             min={0}
             max={audioDuration}
             value={audioCurrentTime}
-            onChange={handleSliderValue}
-            onDoubleClick={() => handleSliderPosition()}
+            // onChange={handleSliderValue}
+            // onDoubleClick={() => handleSliderPosition()}
           ></input>
         </div>
         <Gap />
         <ConfigDetails
           currenTime={audioCurrentTime}
+          initialFromTime={0}
+          initialToTime={0}
           maxTime={audioDuration}
           minTime={0}
+          playingAudio={playingAudio}
+          onPlayAudio={playAudio}
+          onPauseAudio={pauseAudio}
           onChangeTime={handleConfigDetailsValue}
         />
       </div>

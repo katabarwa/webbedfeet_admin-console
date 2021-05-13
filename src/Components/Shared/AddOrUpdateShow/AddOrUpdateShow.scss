@@ -59,9 +59,9 @@ $boxPadding: calc(#{style.$defaultPadding} * 2);
 
 .add-or-update-audio-remove-button {
   position: absolute;
-  right: 5px;
-  top: 5px;
-  color: style.$redColor;
+  right: 10px;
+  top: 10px;
+  color: style.$blackColor;
   font-size: 20px;
   z-index: 3000;
   cursor: pointer;
@@ -91,10 +91,12 @@ $boxPadding: calc(#{style.$defaultPadding} * 2);
 .add-or-update-show-audio-config {
   background-color: style.$lightColor;
   width: 100%;
+  position: relative;
 }
 
 .add-or-update-show-footer {
   width: 100%;
   @include style.flex(column);
   align-items: center;
+  border-top: 3px solid style.$purpleColor;
 }

@@ -1,31 +1,66 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import timeInSecondsToHms from "../../../Functions/timeInSecondsToHms";
 import "./NumberBox.scss";
 
 let intervalCount: any;
-let intervalNumber = 0;
 
 type TNumberBoxProps = {
   name: string;
   initialNumber?: number;
+  value?: number;
   maxNumber: number;
   minNumber?: number;
+  makeActive?: boolean;
+  isActive?: (value: boolean) => void;
   onChange?: (value: number) => void;
 };
 
 const NumberBox: FC<TNumberBoxProps> = ({
   name,
   initialNumber = 0,
+  value,
   maxNumber,
   minNumber = 0,
+  makeActive = false,
+  isActive,
   onChange,
 }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState<boolean>(false);
   const [number, setNumber] = useState<number>(0);
   useEffect(() => {
     setNumber(initialNumber);
-    intervalNumber = initialNumber;
   }, []);
+
+  useEffect(() => {
+    if (active !== makeActive) setActive(makeActive);
+  }, [makeActive]);
+
+  useEffect(() => {
+    // add event listener when element is mounted
+    document.addEventListener("mousedown", handleClick);
+
+    return () => {
+      // remove event listener when element is unmounted
+      document.removeEventListener("mousedown", handleClick);
+    };
+  }, []);
+
+  const handleClick = (event: MouseEvent) => {
+    if (ref.current?.contains(event.target as Element)) {
+      // inside click
+      setActive(true);
+      isActive && isActive(true);
+      return;
+    }
+
+    //outside click
+    event.preventDefault();
+    event.stopPropagation();
+    setActive(false);
+    isActive && isActive(false);
+  };
 
   const updateNumber = (value: "inc" | "dec") => {
     if (value === "inc") {
@@ -66,7 +101,11 @@ const NumberBox: FC<TNumberBoxProps> = ({
   };
 
   return (
-    <div id={name} className="number-box-wrapper">
+    <div
+      ref={ref}
+      id={name}
+      className={`number-box-wrapper ${active && "number-box-wrapper-active"}`}
+    >
       <div className="number-box-inc-dec-container">
         <AiFillCaretUp
           className="number-box-inc-dec-icon"
@@ -79,7 +118,9 @@ const NumberBox: FC<TNumberBoxProps> = ({
           onMouseUp={stopNumberUpdate}
         />
       </div>
-      <div className="number-box-value">{timeInSecondsToHms(number)}</div>
+      <div className="number-box-value">
+        {timeInSecondsToHms(value ? value : number)}
+      </div>
     </div>
   );
 };

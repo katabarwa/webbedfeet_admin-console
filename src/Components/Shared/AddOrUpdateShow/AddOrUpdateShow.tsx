@@ -20,9 +20,8 @@ const AddOrUpdateShow = () => {
     {}
   );
   const [isSubmittingShow, setIsSubmittingShow] = useState<boolean>(false);
-  const [serverErrorMessage, setServerErrorMessage] = useState<string | null>(
-    null
-  );
+  const [serverErrorMessage, setServerErrorMessage] =
+    useState<string | null>(null);
 
   //Update input and set inputs state
   const handleInput = (event: ChangeEvent) => {
@@ -133,6 +132,11 @@ const AddOrUpdateShow = () => {
         </div>
         {inputs?.audioURL && (
           <div className="add-or-update-show-audio-config">
+            <AiOutlineClose
+              className="add-or-update-audio-remove-button"
+              onClick={removeAudioURL}
+            />
+
             <AudioConfig audioURL={inputs?.audioURL} />
           </div>
         )}

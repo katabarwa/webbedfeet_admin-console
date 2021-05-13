@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import Button from "../../../../Shared/Button/Button";
 import { parseISO, format } from "date-fns";
@@ -9,6 +9,9 @@ import { Fragment, useState } from "react";
 import AddOrUpdatePerson from "../../../../Shared/AddOrUpdatePerson/AddOrUpdatePerson";
 import Popup from "../../../../Shared/Popup/Popup";
 import { AiOutlineClose } from "react-icons/ai";
+import FeedbackMessagePopup from "../../../../Shared/FeedbackMessagePopup/FeedbackMessagePopup";
+import Loader from "../../../../Shared/Loader/Loader";
+import apiRequest from "../../../../../Functions/apiRequest";
 
 type TReduxStateSelector = {
   people: any;
@@ -17,17 +20,32 @@ type TReduxStateSelector = {
 const PeopleDetails = () => {
   const people: any = useSelector<TReduxStateSelector>((state) => state.people);
   const history = useHistory();
+  const dispatch = useDispatch();
   const [activePersonIDs, setActivePersonIDs] = useState<string[]>([]);
   const [showEditPersonPopup, setShowEditPersonPopup] =
     useState<boolean>(false);
   const [showDeletePersonPopup, setShowDeletePersonPopup] =
     useState<boolean>(false);
+  const [deletePersonPopupMessage, setDeletePersonPopupMessage] =
+    useState<string>("");
+  const [showDeleteLoader, setShowDeleteLoader] = useState<boolean>(false);
+  const [serverErrorMessage, setServerErrorMessage] =
+    useState<string | null>(null);
 
   //Get selected menu
   const handleSelectedMenu = (selectedMenus: string[], personID: string) => {
     setActivePersonIDs([personID]);
     if (selectedMenus[0] === "Edit") setShowEditPersonPopup(true);
-    if (selectedMenus[0] === "Delete") setShowDeletePersonPopup(true);
+    if (selectedMenus[0] === "Delete") {
+      const personDetails = people.filter(
+        (person: any) => person._id === personID
+      );
+
+      setDeletePersonPopupMessage(
+        `Are you sure you want to delete - ${personDetails[0].name}. All related connections will also become inaccessible.`
+      );
+      setShowDeletePersonPopup(true);
+    }
   };
 
   //Get active person details
@@ -45,48 +63,20 @@ const PeopleDetails = () => {
 
   const deletePerson = async (personID: string) => {
     setServerErrorMessage(null);
-    setIsSubmittingPerson(true);
-    const copyOfCurrentInputs = lodash.cloneDeep(currentInputs);
-    if (currentInputs.connections) {
-      let connectionIDs: string[] = [];
-      const copyOfConnections = lodash.cloneDeep(currentInputs.connections);
-      copyOfConnections.forEach((connectionName: string) => {
-        people.forEach((connectionPerson: any) => {
-          if (connectionPerson.name === connectionName) {
-            connectionIDs.push(connectionPerson._id);
-          }
-        });
-      });
-      copyOfCurrentInputs.connections = connectionIDs;
-    }
+    setShowDeleteLoader(true);
 
-    let response: any;
-    if (action === "create")
-      response = await apiRequest(
-        "/person/create",
-        "POST",
-        copyOfCurrentInputs
-      );
-    if (action === "update")
-      response = await apiRequest(
-        `/person/update/${person._id}`,
-        "PATCH",
-        copyOfCurrentInputs
-      );
+    const response = await apiRequest(`/person/delete/${personID}`, "DELETE");
     if (response?.success) {
       let peopleResponse = await apiRequest("/people", "GET");
       if (peopleResponse.success) {
         dispatch({ type: "people", value: peopleResponse.data });
       }
-
-      setIsSubmittingPerson(false);
-      if (action === "update") onUpdate && onUpdate();
-      history.push("/people");
+      setShowDeleteLoader(false);
       return;
     }
 
     setServerErrorMessage(response.message);
-    setIsSubmittingPerson(false);
+    setShowDeleteLoader(false);
   };
 
   return (
@@ -121,8 +111,8 @@ const PeopleDetails = () => {
               </td>
               <td>{person.name}</td>
               <td>
-                {person.connections?.length > 0
-                  ? person.connections
+                {person.personConnections?.length > 0
+                  ? person.personConnections
                       .map((connection: any) => connection.name)
                       .join(", ")
                   : "No Connections"}
@@ -167,23 +157,32 @@ const PeopleDetails = () => {
         </Popup>
       )}
       {showDeletePersonPopup && (
+        <FeedbackMessagePopup
+          showFeedbackPopup={showDeletePersonPopup}
+          type="warning"
+          okayButtonLabel="DELETE"
+          okayButtonColor="danger"
+          message={deletePersonPopupMessage}
+          onClosePopup={() => setShowDeletePersonPopup(false)}
+          onClickOk={() => deletePerson(activePersonIDs[0])}
+        />
+      )}
+      {showDeleteLoader && (
         <Popup
-          display={showEditPersonPopup}
-          align="flex-start"
-          justify="flex-end"
+          display={showDeleteLoader}
+          allowCloseOnClickOutside={false}
           onClose={handleCloseEditPersonPopup}
         >
-          <div className="people-details-edit-person-container">
-            <AiOutlineClose
-              className="people-details-edit-person-container-close-button"
-              onClick={handleCloseEditPersonPopup}
-            />
-            <AddOrUpdatePerson
-              person={getActivePerson(activePersonIDs[0])}
-              onUpdate={handleCloseEditPersonPopup}
-            />
-          </div>
+          <Loader />
         </Popup>
+      )}
+      {serverErrorMessage && (
+        <FeedbackMessagePopup
+          showFeedbackPopup={!!serverErrorMessage}
+          type="error"
+          message={serverErrorMessage}
+          onClosePopup={() => setServerErrorMessage(null)}
+        />
       )}
     </Fragment>
   );
